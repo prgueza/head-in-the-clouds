@@ -13,7 +13,7 @@ React + Redux based SPA for the IOMED Technical interview
   - [x] Upload the app source code to Github.
   - [ ] Make the website available through Netlify.
   - [ ] Test the application functionallity.
-  - [ ] (Optional) Use ​reduxjs-reselect​ to enhance the state management.
+  - [x] (Optional) Use ​reduxjs-reselect​ to enhance the state management.
   - [x] (Optional) Use react-router to manage routing.
 
 - Functional requirements
