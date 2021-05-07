@@ -9,7 +9,7 @@ React + Redux based SPA for the IOMED Technical interview
   - [x] Build a React SPA (using, for instance, ​https://create-react-app.dev/​)
   - [x] Install the Elastic UI framework (​https://github.com/elastic/eui/blob/master/wiki/consuming.md​)
   - [x] Use ​redux​ as a state manager.
-  - [ ] Use redux-saga to manage the persistence module.
+  - [x] Use redux-saga to manage the persistence module.
   - [x] Upload the app source code to Github.
   - [ ] Make the website available through Netlify.
   - [ ] Test the application functionallity.
