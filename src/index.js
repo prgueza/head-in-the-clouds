@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/index.css";
-import IomMainView from "./views/iom-main-view/IomMainView";
+import IomApp from "./views/iom-app/IomApp";
 import reportWebVitals from "./utils/reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <IomMainView />
+    <IomApp />
   </React.StrictMode>,
   document.getElementById("root")
 );
