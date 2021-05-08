@@ -1,0 +1,16 @@
+.weather__header {
+  margin: 4rem 0;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather__header-title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.weather__content {
+  padding: 4rem;
+}

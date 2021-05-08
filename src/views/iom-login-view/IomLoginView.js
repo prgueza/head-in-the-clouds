@@ -1,7 +1,10 @@
+import "./IomLoginView.css";
+import IomAuthPanel from "../../components/iom-auth-panel/IomAuthPanel";
+
 function IomLoginView() {
   return (
-    <section className="main">
-      <header className="header">Login</header>
+    <section className="login">
+      <IomAuthPanel />
     </section>
   );
 }
