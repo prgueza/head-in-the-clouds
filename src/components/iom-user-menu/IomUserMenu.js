@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import C from "../../store/constants";
 
 // Styles
-import "./IomUserMenu.css";
+import "./IomUserMenu.scss";
 
 // Utilities
 import { htmlIdGenerator } from "@elastic/eui/lib/services";
@@ -66,13 +66,13 @@ const IomUserMenu = () => {
             <EuiText>
               <p>{auth.user?.username}</p>
             </EuiText>
-            <EuiText className="user-menu__email">
+            <EuiText className="iom-user-menu__email">
               <p>{auth.user?.email}</p>
             </EuiText>
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
             <EuiButtonIcon
-              iconType="push"
+              iconType="exit"
               aria-label="Sign out"
               color="accent"
               size="m"

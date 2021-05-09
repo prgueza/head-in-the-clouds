@@ -1,4 +1,4 @@
-import "./IomAuthPanel.css";
+import "./IomAuthPanel.scss";
 import React from "react";
 import {
   BrowserRouter as Switch,

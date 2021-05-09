@@ -7,17 +7,17 @@ import { localStorageMiddleware } from "./middlewares/localStorageMiddleware";
 // Reducers
 import authReducer from "./reducers/authReducer";
 import locationsReducer from "./reducers/locationsReducer";
-// import weatherReducer from "./reducers/weatherReducer";
+import collectionsReducer from "./reducers/collectionsReducer";
 
 // Sagas
 import { SignUpSaga, SignInSaga } from "./sagas/authSaga";
 import locationsSaga from "./sagas/locationsSaga";
-// import weatherSaga from "./sagas/weatherSaga";
+import collectionsSaga from "./sagas/collectionsSaga";
 
 const reducer = combineReducers({
   auth: authReducer,
   locations: locationsReducer,
-  // weather: weatherReducer,
+  collections: collectionsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,9 +31,9 @@ if (process.env.NODE_ENV === "development") {
 
 const store = createStore(reducer, applyMiddleware(...middlewares));
 
-sagaMiddleware.run(locationsSaga);
 sagaMiddleware.run(SignInSaga);
 sagaMiddleware.run(SignUpSaga);
-// sagaMiddleware.run(weatherSaga);
+sagaMiddleware.run(locationsSaga);
+sagaMiddleware.run(collectionsSaga);
 
 export default store;

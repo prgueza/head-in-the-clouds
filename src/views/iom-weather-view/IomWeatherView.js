@@ -1,5 +1,5 @@
 import React from "react";
-import "./IomWeatherView.css";
+import "./IomWeatherView.scss";
 import { connect } from "react-redux";
 
 // Selectors
@@ -9,7 +9,7 @@ import locationsSelectors from "../../store/selectors/locations";
 import { EuiFlexGrid, EuiFlexItem, EuiTitle } from "@elastic/eui";
 
 // Components
-import IomCard from "../../components/iom-card/IomCard";
+import IomLocationCard from "../../components/iom-location-card/IomLocationCard";
 import IomLocationPicker from "../../components/iom-location-picker/IomLocationPicker";
 
 function IomWeatherView({ selectedLocations }) {
@@ -25,7 +25,7 @@ function IomWeatherView({ selectedLocations }) {
         <EuiFlexGrid columns={3} gutterSize="xl">
           {selectedLocations.map((location) => (
             <EuiFlexItem key={location.label}>
-              <IomCard location={location}></IomCard>
+              <IomLocationCard location={location}></IomLocationCard>
             </EuiFlexItem>
           ))}
         </EuiFlexGrid>

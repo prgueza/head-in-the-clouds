@@ -1,18 +1,19 @@
 import "./IomApp.css";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import dayjs from "dayjs";
 
 // Actions
 import authActions from "../../store/actions/auth";
 
+// Routes
+import routes from "../../router/routes";
+
 // Components
 import IomBackground from "../../components/iom-background/IomBackground";
-import IomWeatherView from "../iom-weather-view/IomWeatherView";
 import IomNavigation from "../../components/iom-navigation/IomNavigation";
-import IomLoginView from "../iom-login-view/IomLoginView";
-import ProtectedRoute from "../../components/iom-protected-route/IomProtectedRoute";
+import IomRoute from "../../components/iom-route/IomRoute";
 
 const THEMES = [
   { theme: "dawn", from: 0, to: 10 },
@@ -56,8 +57,9 @@ class IomApp extends React.Component {
         <IomNavigation />
         <section className="app">
           <Switch>
-            <ProtectedRoute path="/weather" component={IomWeatherView} />
-            <Route path="/auth" component={IomLoginView} />
+            {routes.map((route) => (
+              <IomRoute key={route.name} {...route}></IomRoute>
+            ))}
           </Switch>
         </section>
       </Router>

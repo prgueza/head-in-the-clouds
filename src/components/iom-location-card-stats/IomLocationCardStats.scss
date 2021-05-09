@@ -1,0 +1,11 @@
+.iom-card {
+  &__stat {
+    &-subtitle {
+      display: inline-flex;
+      align-items: center;
+      & div:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+}

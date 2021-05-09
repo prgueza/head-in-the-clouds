@@ -1,0 +1,17 @@
+.weather {
+  &__content {
+    padding: 4rem;
+  }
+  &__header {
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-title {
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--main-title-color);
+      font-size: 48px;
+    }
+  }
+}

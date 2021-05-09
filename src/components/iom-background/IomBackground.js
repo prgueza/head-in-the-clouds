@@ -1,4 +1,4 @@
-import "./IomBackground.css";
+import "./IomBackground.scss";
 
 const paths = [
   {

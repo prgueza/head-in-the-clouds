@@ -1,0 +1,8 @@
+.auth-panel {
+  width: 400px;
+  &__form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}

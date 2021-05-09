@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./assets/index.css";
+import "./assets/main.scss";
 import "@elastic/eui/dist/eui_theme_amsterdam_light.css";
 import IomApp from "./views/iom-app/IomApp";
 import reportWebVitals from "./utils/reportWebVitals";

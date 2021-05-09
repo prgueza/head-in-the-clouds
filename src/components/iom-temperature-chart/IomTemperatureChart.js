@@ -1,29 +1,66 @@
-import "@elastic/charts/dist/theme_light.css";
+import "@elastic/charts/dist/theme_only_light.css";
+import "./IomTemperatureChart.scss";
 
-import React, { Fragment } from "react";
-import { Chart, Settings, LineSeries } from "@elastic/charts";
+import React, { Fragment, useEffect, useState } from "react";
+import dayjs from "dayjs";
+import {
+  Chart,
+  Settings,
+  LineSeries,
+  CurveType,
+  TooltipType,
+  Axis,
+} from "@elastic/charts";
 
-const IomTemperatureChart = () => {
-  const data1 = [
-    { x: 1, y: 1 },
-    { x: 2, y: 4 },
-    { x: 3, y: 5 },
-    { x: 4, y: 3 },
-    { x: 5, y: 5 },
-  ];
+const IomTemperatureChart = ({ predictions }) => {
+  const [temperatures, setTemperatures] = useState([]);
+
+  useEffect(() => {
+    console.log(predictions);
+    const { max, min } = predictions.reduce(
+      (data, { date, min, max }) => {
+        data.max.push({ date, temp: max });
+        data.min.push({ date, temp: min });
+        return data;
+      },
+      { max: [], min: [] }
+    );
+    setTemperatures([
+      { serie: "max", color: "#e7664c", data: max },
+      { serie: "min", color: "#6092c0", data: min },
+    ]);
+  }, [predictions]);
 
   return (
     <Fragment>
-      <Chart theme="dark" size={{ height: 100 }}>
-        <Settings showLegend={false} />
-        <LineSeries
-          id="control"
-          name="Control"
-          data={data1}
-          xAccessor={"x"}
-          yAccessors={["y"]}
-          color={["black"]}
+      <Chart className="chart" theme="dark" size={{ height: "100%" }}>
+        <Settings showLegend={false} tooltip={{ type: TooltipType.None }} />
+        <Axis
+          id="x-axis"
+          position="bottom"
+          style={{
+            axisLine: {
+              visible: false,
+            },
+            tickLine: {
+              visible: false,
+            },
+          }}
+          labelFormat={(d) => dayjs(d).format("dd")[0]}
         />
+        {temperatures.map(({ serie, data, color }, idx) => (
+          <LineSeries
+            key={serie}
+            id={serie}
+            name={serie}
+            data={data}
+            xAccessor={"date"}
+            timezone="Europe/Madrid"
+            yAccessors={["temp"]}
+            color={[color]}
+            curve={CurveType.CURVE_MONOTONE_X}
+          />
+        ))}
       </Chart>
     </Fragment>
   );
