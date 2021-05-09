@@ -1,5 +1,6 @@
 import "@elastic/charts/dist/theme_only_light.css";
 import "./IomTemperatureChart.scss";
+import colors from "../../assets/base/_variables.module.scss";
 
 import React, { Fragment, useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -12,11 +13,12 @@ import {
   Axis,
 } from "@elastic/charts";
 
+console.log(colors);
+
 const IomTemperatureChart = ({ predictions }) => {
   const [temperatures, setTemperatures] = useState([]);
 
   useEffect(() => {
-    console.log(predictions);
     const { max, min } = predictions.reduce(
       (data, { date, min, max }) => {
         data.max.push({ date, temp: max });
@@ -26,8 +28,8 @@ const IomTemperatureChart = ({ predictions }) => {
       { max: [], min: [] }
     );
     setTemperatures([
-      { serie: "max", color: "#e7664c", data: max },
-      { serie: "min", color: "#6092c0", data: min },
+      { serie: "max", color: colors.maxTemp, data: max },
+      { serie: "min", color: colors.minTemp, data: min },
     ]);
   }, [predictions]);
 

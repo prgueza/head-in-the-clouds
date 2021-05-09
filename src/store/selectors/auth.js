@@ -1,7 +1,7 @@
-const locationsSelectors = (state) => {
+const authSelectors = (state) => {
   return {
     token: state.auth.token,
   };
 };
 
-export default locationsSelectors;
+export default authSelectors;

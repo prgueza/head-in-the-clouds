@@ -8,11 +8,12 @@ import { getWeatherByLocation } from "../../services/weather";
 import "./IomLocationCard.scss";
 
 // Elastic UI Components
-import { EuiCard, EuiIcon, EuiLoadingChart } from "@elastic/eui";
+import { EuiCard, EuiIcon, EuiLoadingChart, EuiTitle } from "@elastic/eui";
 
 // Components
 import IomTemperatureChart from "../iom-temperature-chart/IomTemperatureChart";
 import IomLocationCardStats from "../iom-location-card-stats/IomLocationCardStats";
+import IomLocationCardActions from "../iom-location-card-actions/IomLocationCardActions";
 
 class IomLocationCard extends React.Component {
   constructor(props) {
@@ -65,22 +66,32 @@ class IomLocationCard extends React.Component {
       );
       this.setState({ temperature, rainChance, predictions, rainPredictions });
       this.setIcon({ temperature, rainChance });
-      console.log(this.state);
     } catch (error) {
       console.error(error);
     } finally {
-      this.setState({ isLoading: false });
+      setTimeout(() => this.setState({ isLoading: false }), 500);
     }
   }
 
   render() {
     return (
       <EuiCard
+        className="iom-location-card"
         icon={<EuiIcon size="xxl" type={this.state.icon} />}
         textAlign="center"
-        title={this.props.location.label}
+        title={
+          <EuiTitle className="iom-location-card__title" size="l">
+            <h1>{this.props.location.label}</h1>
+          </EuiTitle>
+        }
       >
-        <div className="iom-card__stats-container">
+        <div className="iom-location-card__actions">
+          <IomLocationCardActions
+            location={this.props.location}
+            onRefresh={this.getWeatherInformation}
+          />
+        </div>
+        <div className="iom-location-card__stats-container">
           <IomLocationCardStats
             isLoading={this.state.isLoading}
             temperature={this.state.temperature}
@@ -88,7 +99,7 @@ class IomLocationCard extends React.Component {
             rainPredictions={this.state.rainPredictions}
           />
         </div>
-        <div className="iom-card__chart-container">
+        <div className="iom-location-card__chart-container">
           {this.state.isLoading ? (
             <EuiLoadingChart size="xl" />
           ) : (

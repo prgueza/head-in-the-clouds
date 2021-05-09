@@ -1,4 +1,7 @@
-.iom-card {
+.iom-location-card {
+  &__stats {
+    margin: 0 8px;
+  }
   &__stat {
     &-subtitle {
       display: inline-flex;

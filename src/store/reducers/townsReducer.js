@@ -4,28 +4,28 @@ const initialState = () => ({
   isLoading: false,
   error: null,
   query: "",
-  locations: [],
-  selectedLocations: [],
+  towns: [],
+  selectedTowns: [],
 });
 
-function locationsReducer(state = initialState(), action) {
+function townsReducer(state = initialState(), action) {
   switch (action.type) {
-    case C.LOCATIONS_FETCH_REQUESTED:
+    case C.TOWNS_FETCH_REQUESTED:
       return { ...state, isLoading: true };
-    case C.LOCATIONS_QUERIED:
+    case C.TOWNS_QUERIED:
       return { ...state, query: action.payload.query };
-    case C.LOCATIONS_SELECTED:
+    case C.TOWNS_SELECTED:
       return {
         ...state,
-        selectedLocations: action.payload.selectedLocations,
+        selectedTowns: action.payload.selectedTowns,
       };
-    case C.LOCATIONS_FETCH_SUCCEEDED:
+    case C.TOWNS_FETCH_SUCCEEDED:
       return {
         ...state,
         isLoading: false,
-        locations: action.payload.locations,
+        towns: action.payload.towns,
       };
-    case C.LOCATIONS_FETCH_FAILED:
+    case C.TOWNS_FETCH_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -36,4 +36,4 @@ function locationsReducer(state = initialState(), action) {
   }
 }
 
-export default locationsReducer;
+export default townsReducer;

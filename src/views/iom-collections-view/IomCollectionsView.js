@@ -21,13 +21,13 @@ class IomCollectionsView extends React.Component {
 
   render() {
     return (
-      <section className="weather">
-        <div className="weather__header">
-          <EuiTitle size="l" className="weather__header-title">
+      <section className="iom-section">
+        <div className="iom-section__header">
+          <EuiTitle size="l" className="iom-section__header-title">
             <h1>Collections</h1>
           </EuiTitle>
         </div>
-        <div className="weather__content">
+        <div className="iom-section__content">
           <EuiFlexGrid columns={3} gutterSize="xl">
             {this.props.filteredCollections.map((collection) => (
               <EuiFlexItem key={collection._id}>

@@ -6,17 +6,17 @@ import { localStorageMiddleware } from "./middlewares/localStorageMiddleware";
 
 // Reducers
 import authReducer from "./reducers/authReducer";
-import locationsReducer from "./reducers/locationsReducer";
+import townsReducer from "./reducers/townsReducer";
 import collectionsReducer from "./reducers/collectionsReducer";
 
 // Sagas
 import { SignUpSaga, SignInSaga } from "./sagas/authSaga";
-import locationsSaga from "./sagas/locationsSaga";
+import townsSaga from "./sagas/townsSaga";
 import collectionsSaga from "./sagas/collectionsSaga";
 
 const reducer = combineReducers({
   auth: authReducer,
-  locations: locationsReducer,
+  towns: townsReducer,
   collections: collectionsReducer,
 });
 
@@ -33,7 +33,7 @@ const store = createStore(reducer, applyMiddleware(...middlewares));
 
 sagaMiddleware.run(SignInSaga);
 sagaMiddleware.run(SignUpSaga);
-sagaMiddleware.run(locationsSaga);
+sagaMiddleware.run(townsSaga);
 sagaMiddleware.run(collectionsSaga);
 
 export default store;

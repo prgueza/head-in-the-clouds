@@ -1,4 +1,17 @@
-.iom-card {
+.iom-location-card {
+  width: 336px;
+  position: relative;
+  &__title {
+    color: var(--accent-color-primary);
+  }
+  &__actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    & > button:not(:last-child) {
+      margin-right: 2px;
+    }
+  }
   &__chart-container {
     margin: 24px 0 0 0;
     height: 100px;

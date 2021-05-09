@@ -1,37 +1,38 @@
 import React from "react";
-import "./IomWeatherView.scss";
 import { connect } from "react-redux";
 
 // Selectors
-import locationsSelectors from "../../store/selectors/locations";
+import townsSelectors from "../../store/selectors/towns";
 
 // Elastic UI Components
-import { EuiFlexGrid, EuiFlexItem, EuiTitle } from "@elastic/eui";
+import { EuiFlexGroup, EuiFlexItem, EuiTitle } from "@elastic/eui";
 
 // Components
 import IomLocationCard from "../../components/iom-location-card/IomLocationCard";
-import IomLocationPicker from "../../components/iom-location-picker/IomLocationPicker";
+import IomTownPicker from "../../components/iom-town-picker/IomTownPicker";
 
-function IomWeatherView({ selectedLocations }) {
+function IomWeatherView({ selectedTowns }) {
   return (
-    <section className="weather">
-      <div className="weather__header">
-        <EuiTitle size="l" className="weather__header-title">
+    <section className="iom-section">
+      <div className="iom-section__header">
+        <EuiTitle size="l" className="iom-section__header-title">
           <h1>Whats the weather like at?</h1>
         </EuiTitle>
-        <IomLocationPicker />
+        <IomTownPicker />
       </div>
-      <div className="weather__content">
-        <EuiFlexGrid columns={3} gutterSize="xl">
-          {selectedLocations.map((location) => (
-            <EuiFlexItem key={location.label}>
-              <IomLocationCard location={location}></IomLocationCard>
-            </EuiFlexItem>
-          ))}
-        </EuiFlexGrid>
+      <div className="iom-section__content-wrapper">
+        <div className="iom-section__content">
+          <EuiFlexGroup wrap columns={4} gutterSize="xl">
+            {selectedTowns.map((town) => (
+              <EuiFlexItem key={town.label}>
+                <IomLocationCard location={town}></IomLocationCard>
+              </EuiFlexItem>
+            ))}
+          </EuiFlexGroup>
+        </div>
       </div>
     </section>
   );
 }
 
-export default connect(locationsSelectors)(IomWeatherView);
+export default connect(townsSelectors)(IomWeatherView);

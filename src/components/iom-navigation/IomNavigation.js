@@ -1,48 +1,37 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+
+// Styles
+import "./IomNavigation.scss";
 
 // Elastic UI Components
-import {
-  EuiHeader,
-  EuiHeaderLogo,
-  EuiHeaderLinks,
-  EuiHeaderLink,
-} from "@elastic/eui";
+import { EuiHeader, EuiIcon, EuiTitle } from "@elastic/eui";
 
 // Components
 import IomUserMenu from "../../components/iom-user-menu/IomUserMenu";
+import IomNavigationLinks from "../../components/iom-navigation-links/IomNavigationLinks";
 
 function IomNavigation() {
   const sections = [
     {
-      items: [<EuiHeaderLogo>Whats the weather like?</EuiHeaderLogo>],
+      items: [
+        <EuiTitle size="xs">
+          <h1 className="iom-navigation__title">
+            <EuiIcon
+              className="iom-navigation__title-icon"
+              type="lensApp"
+              size="l"
+            />
+            Whats the weather like?
+          </h1>
+        </EuiTitle>,
+      ],
       borders: "right",
     },
     {
-      items: [
-        <EuiHeaderLinks aria-label="Navigation links">
-          <Link to="/weather">
-            <EuiHeaderLink
-              iconType="search"
-              isActive={!!useRouteMatch("/weather")}
-            >
-              Browse weather
-            </EuiHeaderLink>
-          </Link>
-          <Link to="/collections">
-            <EuiHeaderLink
-              iconType="grid"
-              isActive={!!useRouteMatch("/collections")}
-            >
-              Collections
-            </EuiHeaderLink>
-          </Link>
-        </EuiHeaderLinks>,
-        <IomUserMenu />,
-      ],
+      items: [<IomNavigationLinks />, <IomUserMenu />],
     },
   ];
-  return <EuiHeader sections={sections} />;
+  return <EuiHeader position="fixed" sections={sections} />;
 }
 
 export default IomNavigation;

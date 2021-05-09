@@ -1,5 +1,5 @@
 @import "base/_themes";
-@import "base/_variables";
+@import "base/variables.module";
 
 :root {
   --main-title-color: black;
@@ -27,7 +27,40 @@ body {
 }
 
 #root {
+  position: relative;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+}
+
+.app {
+  padding: 56px 32px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.iom-section {
+  margin-top: 112px;
+  &__content-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  &__content {
+    padding: 4rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  &__header {
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-title {
+      &#{&} {
+        margin-bottom: 2rem;
+        text-align: center;
+        color: var(--accent-color-secondary);
+        font-size: 48px;
+      }
+    }
+  }
 }

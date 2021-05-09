@@ -21,8 +21,8 @@ const IomCardStats = ({
   rainChance,
   rainPredictions,
 }) => (
-  <EuiFlexGroup justifyContent="spaceEvenly" gutterSize="l">
-    <EuiFlexItem grow={false}>
+  <EuiFlexGroup className="iom-location-card__stats" gutterSize="l">
+    <EuiFlexItem>
       <EuiStat
         textAlign="center"
         title={withUnits(
@@ -32,7 +32,7 @@ const IomCardStats = ({
         description="Temperature"
         isLoading={isLoading}
       >
-        <EuiText className="iom-card__stat-subtitle" size="xs">
+        <EuiText className="iom-location-card__stat-subtitle" size="xs">
           {!isLoading && (
             <>
               <div>
@@ -52,14 +52,14 @@ const IomCardStats = ({
         </EuiText>
       </EuiStat>
     </EuiFlexItem>
-    <EuiFlexItem grow={false}>
+    <EuiFlexItem>
       <EuiStat
         textAlign="center"
         title={withUnits(rainChance?.value, rainChance?.units)}
         description="Rain chance"
         isLoading={isLoading}
       >
-        <EuiText className="iom-card__stat-subtitle" size="xs">
+        <EuiText className="iom-location-card__stat-subtitle" size="xs">
           {!isLoading && (
             <div>
               <EuiIcon type="tear" size="s" />

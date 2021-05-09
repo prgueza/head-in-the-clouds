@@ -1,6 +1,7 @@
 .theme {
   &--dawn {
-    --main-title-color: black;
+    --accent-color-primary: #969696;
+    --accent-color-secondary: #969696;
     --color-neutral: #969696;
     --bg-color: #fff9f6;
     --color-1: #aac0c1;
@@ -16,7 +17,8 @@
   }
 
   &--day {
-    --main-title-color: black;
+    --accent-color-primary: black;
+    --accent-color-secondary: black;
     --color-neutral: #969696;
     --bg-color: #abd3fc;
     --color-1: #4c7aee;
@@ -32,7 +34,8 @@
   }
 
   &--sunset {
-    --main-title-color: black;
+    --accent-color-primary: #b180e3;
+    --accent-color-secondary: white;
     --color-neutral: #969696;
     --bg-color: #d89fde;
     --color-1: #9064e4;
@@ -48,13 +51,14 @@
   }
 
   &--night {
-    --main-title-color: black;
+    --accent-color-primary: #a67392;
+    --accent-color-secondary: #a67392;
     --color-neutral: #969696;
-    --bg-color: #bc91ac;
-    --color-1: #744eb6;
-    --color-2: #845db3;
-    --color-3: #9b72b1;
-    --color-4: #ab81af;
+    --bg-color: #342c4d;
+    --color-1: #a67392;
+    --color-2: #bf8db1;
+    --color-3: #d7aab2;
+    --color-4: #ffd9f0;
     --gradient: linear-gradient(
       43deg,
       var(--color-4) 0%,

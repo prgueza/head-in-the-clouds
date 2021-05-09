@@ -1,10 +1,10 @@
-export function locationMapper(location) {
+export function townMapper(town) {
   return {
-    label: location.NOMBRE,
-    name: location.NOMBRE,
-    county: location.NOMBRE_PROVINCIA,
-    code: location.CODIGOINE.slice(0, 5),
-    countyCode: location.CODPROV,
+    label: town.NOMBRE,
+    name: town.NOMBRE,
+    county: town.NOMBRE_PROVINCIA,
+    code: town.CODIGOINE.slice(0, 5),
+    countyCode: town.CODPROV,
   };
 }
 

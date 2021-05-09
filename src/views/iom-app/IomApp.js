@@ -1,4 +1,3 @@
-import "./IomApp.css";
 import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
@@ -25,6 +24,7 @@ class IomApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      theme: "day",
       themeCheckInterval: null,
     };
     this.themeCheck = this.themeCheck.bind(this);
@@ -42,12 +42,14 @@ class IomApp extends React.Component {
   }
 
   themeCheck() {
-    const { theme } = THEMES.find(({ from, to }) => from < dayjs().hour() < to);
+    const hour = dayjs().hour();
+    const { theme } = THEMES.find(({ from, to }) => hour > from && hour <= to);
     const body = document.querySelector("body");
-    body.classList.forEach(
-      (className) => /theme/.test(className) && body.classList.remove(className)
-    );
-    body.classList.add(`theme--${theme}`);
+    if (theme !== this.state.theme) {
+      body.classList.remove(`theme--${this.state.theme}`);
+      body.classList.add(`theme--${theme}`);
+      this.setState({ theme });
+    }
   }
 
   render() {

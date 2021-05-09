@@ -1,10 +1,16 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import IomProtectedRoute from "../iom-protected-route/IomProtectedRoute";
 
 const IomRoute = (route) => {
   const RouteComponent = route.protected ? IomProtectedRoute : Route;
 
-  return (
+  return route.redirect ? (
+    <Redirect
+      to={{
+        pathname: route.redirect,
+      }}
+    />
+  ) : (
     <RouteComponent
       path={route.path}
       exact={route.exact}

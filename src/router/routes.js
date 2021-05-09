@@ -6,6 +6,12 @@ import IomRouteView from "../views/iom-route-view/IomRouteView";
 
 const routes = [
   {
+    name: "home",
+    path: "/",
+    exact: true,
+    redirect: "/weather",
+  },
+  {
     name: "auth",
     path: "/auth",
     component: IomLoginView,
@@ -14,7 +20,6 @@ const routes = [
     name: "weather",
     path: "/weather",
     component: IomWeatherView,
-    protected: true,
   },
   {
     name: "collections-locations",
