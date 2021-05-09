@@ -1,17 +1,24 @@
+import C from "../constants";
+
 import { call, put, takeEvery } from "redux-saga/effects";
-import { getLocations } from "../../services/weather";
+import { getLocations } from "../../services/locations";
+
+import {
+  getLocationsSucceeded,
+  getLocationsFailed,
+} from "../actions/locations";
 
 function* getLocationList() {
   try {
     const { locations } = yield call(getLocations);
-    yield put({ type: "LOCATION_FETCH_SUCCEEDED", locations });
+    yield put(getLocationsSucceeded({ locations }));
   } catch (error) {
-    yield put({ type: "LOCATION_FETCH_FAILED", message: error.message });
+    yield put(getLocationsFailed({ message: error.message }));
   }
 }
 
 function* locationsSaga() {
-  yield takeEvery("LOCATION_FETCH_REQUESTED", getLocationList);
+  yield takeEvery(C.LOCATIONS_FETCH_REQUESTED, getLocationList);
 }
 
 export default locationsSaga;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Actions
-import authActions from "../../store/actions/authActions";
+import authActions from "../../store/actions/auth";
 
 // Elastic UI Components
 import {

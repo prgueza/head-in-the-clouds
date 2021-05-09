@@ -1,18 +1,17 @@
-import dayjs from "dayjs";
 import jwt from "jsonwebtoken";
 import C from "../constants";
 
-const generateToken = (data, exp) => {
-  const expiresIn = exp ? dayjs(exp, "X").diff(dayjs(), "s") : 3600;
+const generateToken = (data) => {
+  delete data.exp;
   const token = jwt.sign(data, process.env.REACT_APP_STORAGE_JWT_KEY, {
-    expiresIn,
+    expiresIn: 3600,
   });
   return { token };
 };
 
 const verifyToken = (token) => {
-  const { data, exp } = jwt.verify(token);
-  return { data, exp };
+  const data = jwt.verify(token, process.env.REACT_APP_STORAGE_JWT_KEY);
+  return { data };
 };
 
 export const localStorageMiddleware = () => (next) => (action) => {
@@ -20,21 +19,31 @@ export const localStorageMiddleware = () => (next) => (action) => {
     action.type === C.SIGNIN_SIGNUP_SUCCEEDED &&
     action.payload.keepLoggedIn
   ) {
-    const { token: userToken } = generateToken(action.payload.user);
-    window.localStorage.setItem("wtwl-user-token", userToken);
-    window.localStorage.setItem("wtwl-api-token", action.payload.token);
+    try {
+      const { token: userToken } = generateToken(action.payload.user);
+      window.localStorage.setItem("wtwl-user-token", userToken);
+      window.localStorage.setItem("wtwl-api-token", action.payload.token);
+    } catch (error) {
+      console.error("Set", error);
+      return next(action);
+    }
   } else if (action.type === C.SIGNOUT) {
     window.localStorage.removeItem("wtwl-user-token");
     window.localStorage.removeItem("wtwl-api-token");
   } else if (action.type === C.RESTORE) {
-    const token = window.localStorage.getItem("wtwl-user-token");
-    const apiToken = window.localStorage.getItem("wtwl-api-token");
-    if (!token || !apiToken) next(action);
-    const { data: user, exp } = verifyToken(token);
-    const updatedUserToken = generateToken(user, exp);
-    window.localStorage.setItem("wtwl-user-token", updatedUserToken);
-    action.payload.user = user;
-    action.payload.token = apiToken;
+    try {
+      const token = window.localStorage.getItem("wtwl-user-token");
+      const apiToken = window.localStorage.getItem("wtwl-api-token");
+      if (!token || !apiToken) return;
+      const { data: user } = verifyToken(token);
+      const { token: newUserToken } = generateToken(user);
+      window.localStorage.setItem("wtwl-user-token", newUserToken);
+      action.payload = { user, token: apiToken };
+    } catch (error) {
+      console.error("Restore", error);
+      return;
+    }
   }
+
   next(action);
 };

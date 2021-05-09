@@ -5,6 +5,7 @@ const initialState = () => ({
   isLoading: false,
   isLoggedIn: false,
   user: null,
+  token: null,
   error: false,
   errorMessage: null,
 });
@@ -16,13 +17,22 @@ function authReducer(state = initialState(), action) {
     case C.SIGNUP_REQUESTED:
       return { ...state, isLoading: true, error: false, errorMessage: null };
     case C.SIGNOUT:
-      return { ...state, isLoggedIn: false, user: null };
+      return initialState();
+    case C.RESTORE:
+      return {
+        ...state,
+        isLoggedIn: true,
+        keepLoggedIn: true,
+        user: action.payload?.user,
+        token: action.payload?.token,
+      };
     case C.SIGNIN_SIGNUP_SUCCEEDED:
       return {
         ...state,
         isLoggedIn: true,
         isLoading: false,
         user: action.payload.user,
+        token: action.payload.token,
       };
     case C.SIGNIN_SIGNUP_FAILED:
       return {
@@ -30,6 +40,7 @@ function authReducer(state = initialState(), action) {
         isLoggedIn: false,
         isLoading: false,
         user: null,
+        token: null,
         error: true,
         errorMessage: action.payload.message,
       };

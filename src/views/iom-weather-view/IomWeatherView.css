@@ -1,6 +1,5 @@
 .weather__header {
   margin: 4rem 0;
-  padding: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +8,8 @@
 .weather__header-title {
   margin-bottom: 2rem;
   text-align: center;
+  color: white;
+  font-size: 48px;
 }
 
 .weather__content {

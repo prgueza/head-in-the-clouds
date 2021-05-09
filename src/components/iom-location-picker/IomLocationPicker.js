@@ -1,35 +1,49 @@
 import React from "react";
-import { EuiComboBox } from "@elastic/eui";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
-const IomLocationPicker = () => {
-  const dispatch = useDispatch();
-  const locations = useSelector((state) => state.locations.locations);
-  const selectedLocations = useSelector(
-    (state) => state.locations.selectedLocations
-  );
+// Styles
+import "./IomLocationPicker.css";
 
-  const getLocations = () => {
-    if (!locations.length) {
-      dispatch({ type: "LOCATION_FETCH_REQUESTED" });
-    }
-  };
+// Actions and Selectors
+import locationsActions from "../../store/actions/locations";
+import locationsSelectors from "../../store/selectors/locations";
 
-  const setLocation = (selectedLocations) => {
-    dispatch({ type: "LOCATION_SELECTED", payload: selectedLocations });
+// Elastic UI Components
+import { EuiComboBox, EuiHighlight, EuiBadge } from "@elastic/eui";
+
+const IomLocationPicker = ({
+  getLocations,
+  selectLocations,
+  queryLocations,
+  isLoading,
+  filteredLocations,
+  selectedLocations,
+}) => {
+  const renderOption = (option, query) => {
+    const { name, county } = option;
+    return (
+      <span className="location-picker__option">
+        <EuiHighlight search={query}>{name}</EuiHighlight>
+        <EuiBadge>{county}</EuiBadge>
+      </span>
+    );
   };
 
   return (
     <EuiComboBox
-      placeholder="Select or create options"
-      options={locations.map(({ name }) => ({ label: name }))}
+      // isLoading={isLoading}
+      className="location-picker"
+      sortMatchesBy="startsWith"
+      placeholder="Search for any town!"
+      options={filteredLocations}
       selectedOptions={selectedLocations}
-      onFocus={getLocations}
-      onChange={setLocation}
+      onFocus={() => false || getLocations()}
+      onSearchChange={(query) => queryLocations({ query })}
+      onChange={(selectedLocations) => selectLocations({ selectedLocations })}
+      renderOption={renderOption}
       isClearable={true}
-      onSearchChange={getLocations}
     />
   );
 };
 
-export default IomLocationPicker;
+export default connect(locationsSelectors, locationsActions)(IomLocationPicker);

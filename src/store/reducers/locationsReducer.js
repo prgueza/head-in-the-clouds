@@ -1,26 +1,36 @@
+import C from "../constants";
+
 const initialState = () => ({
+  isLoading: false,
+  error: null,
+  query: "",
   locations: [],
   selectedLocations: [],
-  collections: [],
-  selectedColection: null,
 });
 
 function locationsReducer(state = initialState(), action) {
   switch (action.type) {
-    case "LOCATION_SELECTED":
-      return { ...state, selectedLocations: action.payload.selectedLocations };
-    case "LOCATION_FETCH_REQUESTED":
-      return state;
-    case "LOCATION_FETCH_SUCCEEDED":
-      return { ...state, locations: action.payload.locations };
-    case "LOCATION_FETCH_FAILED":
-      return state;
-    case "SET_CURRENT_COLLECTION":
-      const collection =
-        state.collections.find(
-          (collection) => collection.id === action.payload.collectionId
-        ) || {};
-      return { ...state, collection };
+    case C.LOCATIONS_FETCH_REQUESTED:
+      return { ...state, isLoading: true };
+    case C.LOCATIONS_QUERIED:
+      return { ...state, query: action.payload.query };
+    case C.LOCATIONS_SELECTED:
+      return {
+        ...state,
+        selectedLocations: action.payload.selectedLocations,
+      };
+    case C.LOCATIONS_FETCH_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        locations: action.payload.locations,
+      };
+    case C.LOCATIONS_FETCH_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
     default:
       return state;
   }

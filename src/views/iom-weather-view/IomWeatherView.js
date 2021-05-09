@@ -1,33 +1,37 @@
+import React from "react";
 import "./IomWeatherView.css";
+import { connect } from "react-redux";
 
-// import React from "react";
-// import { useSelector } from "react-redux";
-// import { EuiFlexGrid, EuiFlexItem, EuiTitle } from "@elastic/eui";
-// import IomCard from "../../components/iom-card/IomCard";
-// import IomLocationPicker from "../../components/iom-location-picker/IomLocationPicker";
+// Selectors
+import locationsSelectors from "../../store/selectors/locations";
 
-function IomWeatherView() {
-  // const collection = useSelector((state) => state.weather.collection);
-  // return (
-  //   <section className="weather">
-  //     <div className="weather__header">
-  //       <EuiTitle size="l" className="weather__header-title">
-  //         <h1>Whats the weather like at?</h1>
-  //       </EuiTitle>
-  //       <IomLocationPicker />
-  //     </div>
-  //     <div className="weather__content">
-  //       <EuiFlexGrid columns={3} gutterSize="xl">
-  //         {collection.locations.map((location) => (
-  //           <EuiFlexItem>
-  //             <IomCard location={location}></IomCard>
-  //           </EuiFlexItem>
-  //         ))}
-  //       </EuiFlexGrid>
-  //     </div>
-  //   </section>
-  // );
-  return null;
+// Elastic UI Components
+import { EuiFlexGrid, EuiFlexItem, EuiTitle } from "@elastic/eui";
+
+// Components
+import IomCard from "../../components/iom-card/IomCard";
+import IomLocationPicker from "../../components/iom-location-picker/IomLocationPicker";
+
+function IomWeatherView({ selectedLocations }) {
+  return (
+    <section className="weather">
+      <div className="weather__header">
+        <EuiTitle size="l" className="weather__header-title">
+          <h1>Whats the weather like at?</h1>
+        </EuiTitle>
+        <IomLocationPicker />
+      </div>
+      <div className="weather__content">
+        <EuiFlexGrid columns={3} gutterSize="xl">
+          {selectedLocations.map((location) => (
+            <EuiFlexItem key={location.label}>
+              <IomCard location={location}></IomCard>
+            </EuiFlexItem>
+          ))}
+        </EuiFlexGrid>
+      </div>
+    </section>
+  );
 }
 
-export default IomWeatherView;
+export default connect(locationsSelectors)(IomWeatherView);

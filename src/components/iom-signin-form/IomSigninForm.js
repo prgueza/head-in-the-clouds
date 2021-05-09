@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import authActions from "../../store/actions/authActions";
+import authActions from "../../store/actions/auth";
 
 // Elastic UI Components
 import {

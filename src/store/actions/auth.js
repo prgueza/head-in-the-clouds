@@ -13,30 +13,23 @@ const signUp = ({ username, email, password, confirmPassword }) => ({
 
 const signOut = () => ({ type: C.SIGNOUT });
 
-const signInSignUpSucceeded = ({
-  username,
-  email,
-  password,
-  confirmPassword,
-}) => ({
+const restore = () => ({ type: C.RESTORE });
+
+export const signInSignUpSucceeded = ({ user, token, keepLoggedIn }) => ({
   type: C.SIGNIN_SIGNUP_SUCCEEDED,
-  payload: { username, email, password, confirmPassword },
+  payload: { user, token, keepLoggedIn },
 });
 
-const signInSignUpFailed = ({
-  username,
-  email,
-  password,
-  confirmPassword,
-}) => ({
+export const signInSignUpFailed = ({ message }) => ({
   type: C.SIGNIN_SIGNUP_FAILED,
-  payload: { username, email, password, confirmPassword },
+  payload: { message },
 });
 
 const authActionsCreators = {
   signIn,
   signUp,
   signOut,
+  restore,
 };
 
 const authActions = (dispatch) => {

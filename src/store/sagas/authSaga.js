@@ -1,36 +1,32 @@
 import C from "../constants";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { signIn, signUp } from "../../services/auth";
+import { signInSignUpSucceeded, signInSignUpFailed } from "../actions/auth";
 
 function* userSignIn({ payload }) {
   try {
     const { user, token } = yield call(signIn, payload);
-    yield put({
-      type: C.SIGNIN_SIGNUP_SUCCEEDED,
-      payload: { user, token, keepLoggedIn: payload.keepLoggedIn },
-    });
+    yield put(
+      signInSignUpSucceeded({ user, token, keepLoggedIn: payload.keepLoggedIn })
+    );
   } catch (error) {
-    yield put({
-      type: C.SIGNIN_SIGNUP_FAILED,
-      payload: { message: error.message },
-    });
+    signInSignUpFailed({ message: error.message });
   }
-}
-
-export function* SignInSaga() {
-  yield takeEvery(C.SIGNIN_REQUESTED, userSignIn);
 }
 
 function* userSignUp({ payload }) {
   try {
     const { user, token } = yield call(signUp, payload);
-    yield put({ type: C.SIGNIN_SIGNUP_SUCCEEDED, payload: { user, token } });
+    yield put(
+      signInSignUpSucceeded({ user, token, keepLoggedIn: payload.keepLoggedIn })
+    );
   } catch (error) {
-    yield put({
-      type: C.SIGNIN_SIGNUP_FAILED,
-      payload: { message: error.message },
-    });
+    yield put(signInSignUpFailed({ message: error.message }));
   }
+}
+
+export function* SignInSaga() {
+  yield takeEvery(C.SIGNIN_REQUESTED, userSignIn);
 }
 
 export function* SignUpSaga() {

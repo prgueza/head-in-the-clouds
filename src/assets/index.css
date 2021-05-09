@@ -1,3 +1,73 @@
+:root {
+  --bg-color: #abd3fc;
+  --color-1: #4c7aee;
+  --color-2: #5896f5;
+  --color-3: #67a4f7;
+  --color-4: #ffffff;
+  --gradient: linear-gradient(
+    43deg,
+    var(--color-4) 0%,
+    var(--color-3) 30%,
+    var(--color-1) 66%
+  );
+}
+
+.theme--dawn {
+  --bg-color: #fff9f6;
+  --color-1: #aac0c1;
+  --color-2: #bac3bf;
+  --color-3: #cdc6be;
+  --color-4: #e7cbbc;
+  --gradient: linear-gradient(
+    43deg,
+    var(--color-4) 0%,
+    var(--color-3) 30%,
+    var(--color-1) 66%
+  );
+}
+
+.theme--day {
+  --bg-color: #abd3fc;
+  --color-1: #4c7aee;
+  --color-2: #5896f5;
+  --color-3: #67a4f7;
+  --color-4: #ffffff;
+  --gradient: linear-gradient(
+    43deg,
+    var(--color-4) 0%,
+    var(--color-3) 30%,
+    var(--color-1) 66%
+  );
+}
+
+.theme--sunset {
+  --bg-color: #d89fde;
+  --color-1: #9064e4;
+  --color-2: #9f70e4;
+  --color-3: #b180e3;
+  --color-4: #c48fe0;
+  --gradient: linear-gradient(
+    43deg,
+    var(--color-4) 0%,
+    var(--color-3) 30%,
+    var(--color-1) 66%
+  );
+}
+
+.theme--night {
+  --bg-color: #bc91ac;
+  --color-1: #744eb6;
+  --color-2: #845db3;
+  --color-3: #9b72b1;
+  --color-4: #ab81af;
+  --gradient: linear-gradient(
+    43deg,
+    var(--color-4) 0%,
+    var(--color-3) 30%,
+    var(--color-1) 66%
+  );
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -6,10 +76,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #131b42;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23708ed3' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%231e7bd3' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%237389d5' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%231a75d4' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%237783d6' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%231d6ed5' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%237e7dd6' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%232567d5' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%238576d5' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23305fd5' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%238e6ed3' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%233b57d3' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover;
 }
 
 #root {
