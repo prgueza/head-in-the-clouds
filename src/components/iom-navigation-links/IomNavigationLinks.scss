@@ -1,0 +1,9 @@
+.iom-navigation__link {
+  &.euiHeaderLink-isActive {
+    color: var(--accent-color-primary);
+  }
+  &:enabled:focus {
+    color: var(--accent-color-primary);
+    background-color: transparent;
+  }
+}

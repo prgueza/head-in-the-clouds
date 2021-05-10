@@ -1,0 +1,22 @@
+.iom-collection-card {
+  width: 442px;
+  margin: 16px 0;
+  position: relative;
+  &__title {
+    color: var(--accent-color-primary);
+  }
+  &__description {
+    & .highlight {
+      font-weight: 600;
+      color: var(--accent-color-primary);
+    }
+  }
+  &__actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    & > button:not(:last-child) {
+      margin-right: 2px;
+    }
+  }
+}
