@@ -13,8 +13,6 @@ import {
   Axis,
 } from "@elastic/charts";
 
-console.log(colors);
-
 const IomTemperatureChart = ({ predictions }) => {
   const [temperatures, setTemperatures] = useState([]);
 

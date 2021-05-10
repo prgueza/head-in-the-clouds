@@ -4,7 +4,7 @@ import C from "../constants";
 const generateToken = (data) => {
   delete data.exp;
   const token = jwt.sign(data, process.env.REACT_APP_STORAGE_JWT_KEY, {
-    expiresIn: 3600,
+    expiresIn: 1800000, // Half an hour, same as in serverside (1000 * 60 * 30)
   });
   return { token };
 };

@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { connect } from "react-redux";
 
 // Styles
 import "./IomNewCollectionForm.scss";
+
+// Actions and Selectors
+import collectionsSelectors from "../../store/selectors/collections";
+import collectionsActions from "../../store/actions/collections";
 
 // Elastic UI Components
 import {
@@ -12,10 +17,15 @@ import {
   EuiButtonIcon,
 } from "@elastic/eui";
 
-const IomNewCollectionForm = () => {
+const IomNewCollectionForm = ({ location, isLoading, postCollection }) => {
   const [collectionName, setCollectionName] = useState("");
-  const [isLoading] = useState(true);
-  const handleNewCollection = () => {};
+
+  const handleNewCollection = (e) => {
+    e.preventDefault();
+    postCollection({
+      collection: { name: collectionName, locations: [location] },
+    });
+  };
 
   return (
     <EuiForm
@@ -36,6 +46,7 @@ const IomNewCollectionForm = () => {
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <EuiButtonIcon
+            type="submit"
             iconType="save"
             iconSize="m"
             size="m"
@@ -48,4 +59,7 @@ const IomNewCollectionForm = () => {
   );
 };
 
-export default IomNewCollectionForm;
+export default connect(
+  collectionsSelectors,
+  collectionsActions
+)(IomNewCollectionForm);

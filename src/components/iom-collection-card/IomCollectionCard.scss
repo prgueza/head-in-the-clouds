@@ -1,5 +1,21 @@
 .iom-collection-card {
-  &__date {
-    color: var(--color-neutral);
+  width: 336px;
+  position: relative;
+  &__title {
+    color: var(--accent-color-primary);
+  }
+  &__description {
+    & .highlight {
+      font-weight: 600;
+      color: var(--accent-color-primary);
+    }
+  }
+  &__actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    & > button:not(:last-child) {
+      margin-right: 2px;
+    }
   }
 }

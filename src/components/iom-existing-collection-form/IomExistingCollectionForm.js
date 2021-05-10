@@ -42,7 +42,7 @@ class IomExistingCollectionForm extends React.Component {
 
   mapCollectionToOption(collection) {
     return {
-      value: "warning",
+      value: collection,
       icon: collection.icon,
       inputDisplay: <EuiText> {collection.name} </EuiText>,
     };

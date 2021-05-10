@@ -13,12 +13,16 @@ import routes from "../../router/routes";
 import IomBackground from "../../components/iom-background/IomBackground";
 import IomNavigation from "../../components/iom-navigation/IomNavigation";
 import IomRoute from "../../components/iom-route/IomRoute";
+import IomToastsList from "../../components/iom-toasts-list/IomToastsList";
+
+dayjs().hour();
 
 const THEMES = [
-  { theme: "dawn", from: 0, to: 10 },
-  { theme: "day", from: 10, to: 15 },
-  { theme: "sunset", from: 15, to: 20 },
-  { theme: "night", from: 20, to: 24 },
+  { theme: "dawn", from: 4, to: 10 },
+  { theme: "day", from: 10, to: 16 },
+  { theme: "sunset", from: 16, to: 22 },
+  { theme: "night", from: 22, to: 24 },
+  { theme: "night", from: 0, to: 4 },
 ];
 class IomApp extends React.Component {
   constructor(props) {
@@ -43,7 +47,7 @@ class IomApp extends React.Component {
 
   themeCheck() {
     const hour = dayjs().hour();
-    const { theme } = THEMES.find(({ from, to }) => hour > from && hour <= to);
+    const { theme } = THEMES.find(({ from, to }) => hour >= from && hour < to);
     const body = document.querySelector("body");
     if (theme !== this.state.theme) {
       body.classList.remove(`theme--${this.state.theme}`);
@@ -56,6 +60,7 @@ class IomApp extends React.Component {
     return (
       <Router>
         <IomBackground />
+        <IomToastsList />
         <IomNavigation />
         <section className="app">
           <Switch>

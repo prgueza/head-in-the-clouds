@@ -1,7 +1,7 @@
 import React, { useContext, createContext } from "react";
 import { useSelector } from "react-redux";
 
-const authContext = createContext();
+export const authContext = createContext();
 
 export function IomAuthProvider({ children }) {
   const auth = useProvideAuth();
@@ -14,11 +14,13 @@ export const useAuthContext = () => {
 
 function useProvideAuth() {
   const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isLoading = useSelector((state) => state.auth.isLoading);
 
   return {
     user,
+    token,
     isLoggedIn,
     isLoading,
   };

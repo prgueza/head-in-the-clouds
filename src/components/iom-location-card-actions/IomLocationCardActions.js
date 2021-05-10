@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// Providers
+import { useAuthContext } from "../../providers/IomAuthProvider";
+
 // Elastic UI Components
 import { EuiButtonIcon, EuiPopover, EuiContextMenu } from "@elastic/eui";
 
@@ -7,16 +10,10 @@ import { EuiButtonIcon, EuiPopover, EuiContextMenu } from "@elastic/eui";
 import IomNewCollectionForm from "../iom-new-collection-form/IomNewCollectionForm";
 import IomExistingCollectionForm from "../iom-existing-collection-form/IomExistingCollectionForm";
 
-const IomLocationCardActions = ({ location, onRefresh, onSave, onDelete }) => {
+const IomLocationCardActions = ({ location, onRefresh }) => {
+  const auth = useAuthContext();
   const [isPopoverOpen, setPopover] = useState(false);
 
-  const onButtonClick = () => {
-    setPopover(!isPopoverOpen);
-  };
-
-  const closePopover = () => {
-    setPopover(false);
-  };
   const panels = [
     {
       id: 0,
@@ -38,7 +35,7 @@ const IomLocationCardActions = ({ location, onRefresh, onSave, onDelete }) => {
       id: 1,
       initialFocusedItemIndex: 1,
       title: "Save to new Collection",
-      content: <IomNewCollectionForm />,
+      content: <IomNewCollectionForm location={location} />,
     },
     {
       id: 2,
@@ -55,29 +52,28 @@ const IomLocationCardActions = ({ location, onRefresh, onSave, onDelete }) => {
         aria-label="refresh"
         onClick={onRefresh}
       />
-      <EuiPopover
-        id="contextMenuExample"
-        button={
-          <EuiButtonIcon
-            color="text"
-            iconType="save"
-            aria-label="save"
-            onClick={onButtonClick}
-          />
-        }
-        isOpen={isPopoverOpen}
-        closePopover={closePopover}
-        panelPaddingSize="none"
-        anchorPosition="downLeft"
-      >
-        <EuiContextMenu initialPanelId={0} panels={panels} />
-      </EuiPopover>
-      <EuiButtonIcon
-        color="text"
-        iconType="trash"
-        aria-label="delete"
-        onClick={onDelete}
-      />
+      {auth.isLoggedIn && (
+        <EuiPopover
+          id="contextMenuExample"
+          button={
+            <EuiButtonIcon
+              color="text"
+              iconType="save"
+              aria-label="save"
+              onClick={() => setPopover(!isPopoverOpen)}
+            />
+          }
+          isOpen={isPopoverOpen}
+          closePopover={() => setPopover(false)}
+          panelPaddingSize="none"
+          anchorPosition="downLeft"
+        >
+          <EuiContextMenu initialPanelId={0} panels={panels} />
+        </EuiPopover>
+      )}
+      {auth.isLoggedIn && (
+        <EuiButtonIcon color="text" iconType="trash" aria-label="delete" />
+      )}
     </>
   );
 };
