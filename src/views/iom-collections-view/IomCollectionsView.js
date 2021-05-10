@@ -28,7 +28,7 @@ const IomCollectionsView = ({
   }, []);
 
   const onDragEnd = ({ source, destination }) => {
-    if (source && destination) {
+    if (source && destination && source.index !== destination.index) {
       const reorderedCollections = euiDragDropReorder(
         collections,
         source.index,
