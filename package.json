@@ -2,6 +2,16 @@
   "name": "whats-the-weather-like",
   "version": "1.0.0",
   "private": true,
+  "description": "React + Redux based SPA for the IOMED Technical interview",
+  "author": {
+    "name": "Pedro Rodríguez Alía",
+    "email": "pedro.rodalia@gmail.com",
+    "url": "https://github.com/pedro-rodalia"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedro-rodalia/whats-the-weather-like.git"
+  },
   "dependencies": {
     "@elastic/charts": "^29.1.0",
     "@elastic/datemath": "^5.0.3",
