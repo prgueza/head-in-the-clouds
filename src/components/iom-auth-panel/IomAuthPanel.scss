@@ -1,0 +1,39 @@
+.iom-auth-panel {
+  width: 400px;
+  &__form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  &__form-button {
+    &#{&}#{&} {
+      background-color: var(--accent-color-primary);
+      &:enabled {
+        background-color: var(--accent-color-primary);
+      }
+      &:hover,
+      &:active {
+        background-color: var(--accent-color-primary-light);
+      }
+      &.euiButton-isDisabled {
+        color: white;
+        border-color: var(--accent-color-secondary);
+      }
+    }
+  }
+  &__form-link {
+    &#{&}#{&} {
+      color: var(--accent-color-primary);
+    }
+  }
+  &__form-switch {
+    & .euiSwitch__body {
+      background-color: var(--accent-color-primary);
+    }
+  }
+  &__form-row {
+    & .euiButtonIcon {
+      color: var(--accent-color-primary);
+    }
+  }
+}
