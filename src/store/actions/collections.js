@@ -80,11 +80,29 @@ export const removePlaceFromCollectionFailed = ({ message }) => ({
   payload: { message },
 });
 
+const reorderCollections = ({ collections }) => ({
+  type: C.COLLECTIONS_REORDER_REQUESTED,
+  payload: { collections },
+});
+
+export const reorderCollectionsSucceeded = ({ collections }) => ({
+  type: C.COLLECTIONS_REORDER_SUCCEEDED,
+  payload: { collections },
+});
+
+export const reorderCollectionsFailed = ({ message }) => ({
+  type: C.COLLECTIONS_REORDER_FAILED,
+  payload: { message },
+});
+
 const collectionsActionsCreators = {
   setCollection,
   getCollections,
   getCollectionsSucceeded,
   getCollectionsFailed,
+  reorderCollections,
+  reorderCollectionsSucceeded,
+  reorderCollectionsFailed,
   postCollection,
   postCollectionSucceeded,
   postCollectionFailed,

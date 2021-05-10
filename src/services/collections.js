@@ -16,6 +16,22 @@ export const getCollections = async ({ token }) => {
   }
 };
 
+export const updateCollections = async ({ collections }, { token }) => {
+  try {
+    await collectionsApi.put(
+      "collections",
+      { collections },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return { collections };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const postCollection = async (
   { name, icon = "visMapCoordinate", places = [] },
   { token }

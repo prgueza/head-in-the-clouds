@@ -3,7 +3,7 @@ import C from "../constants";
 const initialState = () => ({
   isLoading: false,
   error: null,
-  query: "",
+  draft: null,
   list: [],
 });
 
@@ -13,6 +13,13 @@ function collectionsReducer(state = initialState(), action) {
       return { ...state, list: action.payload.collection };
     case C.COLLECTIONS_FETCH_REQUESTED:
       return { ...state, isLoading: true };
+    case C.COLLECTIONS_REORDER_REQUESTED:
+      return {
+        ...state,
+        isLoading: true,
+        draft: state.list,
+        list: action.payload.collections,
+      };
     case C.COLLECTION_POST_REQUESTED:
       return { ...state, isLoading: true };
     case C.COLLECTION_DELETE_REQUESTED:
@@ -21,8 +28,10 @@ function collectionsReducer(state = initialState(), action) {
       return { ...state, isLoading: true };
     case C.COLLECTION_DELETE_PLACE_REQUESTED:
       return { ...state, isLoading: true };
-    case C.COLLECTIONS_QUERIED:
-      return { ...state, query: action.payload.query };
+    case C.COLLECTIONS_REORDER_SUCCEEDED:
+      return { ...state, isLoading: false, draft: null };
+    case C.COLLECTIONS_REORDER_FAILED:
+      return { ...state, isLoading: false, list: state.draft, draft: null };
     case C.COLLECTIONS_FETCH_SUCCEEDED:
       return {
         ...state,

@@ -16,7 +16,7 @@ function IomWeatherView({ selectedTowns }) {
     <section className="iom-section">
       <div className="iom-section__header">
         <EuiTitle size="l" className="iom-section__header-title">
-          <h1>Whats the weather like</h1>
+          <h1>What's the weather like</h1>
         </EuiTitle>
         <IomTownPicker />
       </div>

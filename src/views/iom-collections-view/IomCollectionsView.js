@@ -11,6 +11,7 @@ import {
   EuiDragDropContext,
   EuiDraggable,
   EuiDroppable,
+  euiDragDropReorder,
 } from "@elastic/eui";
 
 // Components
@@ -23,11 +24,22 @@ const IomCollectionsView = ({
 }) => {
   useEffect(() => {
     if (!collections.length) getCollections();
+    // eslint-disable-next-line
   }, []);
 
   const onDragEnd = ({ source, destination }) => {
     if (source && destination) {
-      reorderCollections();
+      const reorderedCollections = euiDragDropReorder(
+        collections,
+        source.index,
+        destination.index
+      );
+      reorderCollections({
+        collections: reorderedCollections.map((collection, idx) => ({
+          ...collection,
+          order: idx,
+        })),
+      });
     }
   };
 

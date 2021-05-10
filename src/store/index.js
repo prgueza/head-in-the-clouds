@@ -18,6 +18,7 @@ import {
   deleteCollectionSaga,
   addPlaceToCollectionSaga,
   removePlaceFromCollectionSaga,
+  reorderCollectionsSaga,
 } from "./sagas/collectionsSaga";
 
 const reducer = combineReducers({
@@ -41,6 +42,7 @@ sagaMiddleware.run(SignInSaga);
 sagaMiddleware.run(SignUpSaga);
 sagaMiddleware.run(townsSaga);
 sagaMiddleware.run(getCollectionsSaga);
+sagaMiddleware.run(reorderCollectionsSaga);
 sagaMiddleware.run(postCollectionSaga);
 sagaMiddleware.run(deleteCollectionSaga);
 sagaMiddleware.run(addPlaceToCollectionSaga);

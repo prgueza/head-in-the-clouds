@@ -3,9 +3,10 @@ import C from "../constants";
 
 // Services
 import {
-  deleteCollection,
   getCollections,
+  updateCollections,
   postCollection,
+  deleteCollection,
   postPlace,
   deletePlace,
 } from "../../services/collections";
@@ -31,6 +32,8 @@ import {
   addPlaceToCollectionFailed,
   removePlaceFromCollectionSucceeded,
   removePlaceFromCollectionFailed,
+  reorderCollectionsSucceeded,
+  reorderCollectionsFailed,
 } from "../actions/collections";
 
 function* getCollectionsList() {
@@ -139,8 +142,29 @@ function* removePlaceFromCollection({ payload }) {
   }
 }
 
+function* reorderCollections({ payload }) {
+  try {
+    const { token } = yield select(authSelectors);
+    const { collections } = payload;
+    yield call(updateCollections, { collections }, { token });
+    yield put(reorderCollectionsSucceeded({ collections }));
+  } catch (error) {
+    yield put(reorderCollectionsFailed({ message: error.message }));
+    addToast(
+      errorToast({
+        title: "New order couln't be saved!",
+        text: "Back to the original order...",
+      })
+    );
+  }
+}
+
 export function* getCollectionsSaga() {
   yield takeEvery(C.COLLECTIONS_FETCH_REQUESTED, getCollectionsList);
+}
+
+export function* reorderCollectionsSaga() {
+  yield takeEvery(C.COLLECTIONS_REORDER_REQUESTED, reorderCollections);
 }
 
 export function* postCollectionSaga() {

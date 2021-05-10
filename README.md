@@ -1,4 +1,4 @@
-# Whats The Weather Like!
+# What's The Weather Like!
 
 React + Redux based SPA for the IOMED Technical interview
 
