@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Services
-import { getLocations } from "../../services/locations";
+import { getPlaces } from "../../services/collections";
 
 // Context
 import { authContext } from "../../providers/IomAuthProvider";
@@ -29,25 +29,26 @@ class IomCollectionCard extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
-      locations: [],
+      places: [],
     };
-    this.getLocationsList = this.getLocationsList.bind(this);
+    this.getPlaces = this.getPlaces.bind(this);
+    console.log(this.props.collection);
   }
 
   componentDidMount() {
-    this.getLocationsList();
+    this.getPlaces();
   }
 
-  async getLocationsList() {
+  async getPlaces() {
     try {
       this.setState({ isLoading: true });
-      const { locations } = await getLocations(
+      const { places } = await getPlaces(
         {
-          collectionId: this.props.collection._id,
+          collection: this.props.collection,
         },
         { token: this.context.token }
       );
-      this.setState({ locations });
+      this.setState({ places });
     } catch (error) {
       console.error(error);
     } finally {
@@ -61,16 +62,36 @@ class IomCollectionCard extends React.Component {
         className="iom-collection-card"
         textAlign="center"
         title={
-          <EuiTitle className="iom-location-card__title" size="l">
+          <EuiTitle className="iom-place-card__title" size="l">
             <h1>{this.props.collection.name}</h1>
           </EuiTitle>
         }
         footer={
-          <Link to={`/collections/${this.props.collection._id}/locations`}>
-            <EuiButtonEmpty color="text" iconType="arrowRight" iconSide="right">
-              Go to locations
+          !!this.state.places.length ? (
+            <Link
+              to={{
+                pathname: `/collections/${this.props.collection._id}/places`,
+                collection: this.props.collection,
+              }}
+            >
+              <EuiButtonEmpty
+                color="text"
+                iconType="arrowRight"
+                iconSide="right"
+              >
+                Go to places
+              </EuiButtonEmpty>
+            </Link>
+          ) : (
+            <EuiButtonEmpty
+              isDisabled={true}
+              color="text"
+              iconType="arrowRight"
+              iconSide="right"
+            >
+              Go to places
             </EuiButtonEmpty>
-          </Link>
+          )
         }
         icon={<EuiIcon size="xxl" type={this.props.collection.icon} />}
       >
@@ -87,8 +108,8 @@ class IomCollectionCard extends React.Component {
                 {asDate(this.props.collection.createdAt)}
               </span>{" "}
               and consists of{" "}
-              <span className="highlight">{this.state.locations.length}</span>{" "}
-              locations.
+              <span className="highlight">{this.state.places.length}</span>{" "}
+              place{`${this.state.places.length !== 1 ? "s" : ""}`}.
             </EuiText>
           </>
         )}

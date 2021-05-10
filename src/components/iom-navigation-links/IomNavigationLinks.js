@@ -1,6 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
+//Styles
+import "./IomNavigationLinks.scss";
+
 // Utilities
 import { useAuthContext } from "../../providers/IomAuthProvider";
 
@@ -15,6 +18,7 @@ const IomNavigationLinks = () => {
     <EuiHeaderLinks aria-label="Navigation links">
       <Link to="/weather">
         <EuiHeaderLink
+          className="iom-navigation__link"
           iconType="search"
           isActive={location.pathname.startsWith("/weather")}
         >
@@ -24,7 +28,8 @@ const IomNavigationLinks = () => {
       {auth.isLoggedIn ? (
         <Link to="/collections">
           <EuiHeaderLink
-            iconType="grid"
+            className="iom-navigation__link"
+            iconType="list"
             isActive={location.pathname.startsWith("/collections")}
           >
             Collections
@@ -33,6 +38,7 @@ const IomNavigationLinks = () => {
       ) : (
         <Link to="/auth/login">
           <EuiHeaderLink
+            className="iom-navigation__link"
             iconType="user"
             isActive={location.pathname.startsWith("/auth")}
           >

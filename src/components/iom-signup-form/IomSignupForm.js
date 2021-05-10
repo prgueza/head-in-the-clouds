@@ -29,7 +29,7 @@ const IomSignupForm = ({ isLoading, signUp }) => {
   };
 
   return (
-    <div className="auth-panel__form">
+    <div className="iom-auth-panel__form">
       <EuiTitle size="s">
         <h3>Signup for a sunny day!</h3>
       </EuiTitle>
@@ -49,14 +49,17 @@ const IomSignupForm = ({ isLoading, signUp }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </EuiFormRow>
-        <EuiFormRow label="Password">
+        <EuiFormRow className="iom-auth-panel__form-row" label="Password">
           <EuiFieldPassword
             type="dual"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </EuiFormRow>
-        <EuiFormRow label="Confirm password">
+        <EuiFormRow
+          className="iom-auth-panel__form-row"
+          label="Confirm password"
+        >
           <EuiFieldPassword
             type="dual"
             value={confirmPassword}
@@ -64,12 +67,19 @@ const IomSignupForm = ({ isLoading, signUp }) => {
           />
         </EuiFormRow>
         <EuiSpacer />
-        <div className="auth-panel__form-footer">
-          <EuiButton type="submit" isLoading={isLoading} fill>
+        <div className="iom-auth-panel__form-footer">
+          <EuiButton
+            className="iom-auth-panel__form-button"
+            type="submit"
+            isLoading={isLoading}
+            fill
+          >
             Sign up
           </EuiButton>
           <Link to="/auth/login">
-            <EuiLink>Already registered?</EuiLink>
+            <EuiLink className="iom-auth-panel__form-link">
+              Already registered?
+            </EuiLink>
           </Link>
         </div>
       </EuiForm>

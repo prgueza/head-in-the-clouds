@@ -8,7 +8,7 @@ import townsSelectors from "../../store/selectors/towns";
 import { EuiFlexGroup, EuiFlexItem, EuiTitle } from "@elastic/eui";
 
 // Components
-import IomLocationCard from "../../components/iom-location-card/IomLocationCard";
+import IomPlaceCard from "../../components/iom-place-card/IomPlaceCard";
 import IomTownPicker from "../../components/iom-town-picker/IomTownPicker";
 
 function IomWeatherView({ selectedTowns }) {
@@ -24,8 +24,8 @@ function IomWeatherView({ selectedTowns }) {
         <div className="iom-section__content">
           <EuiFlexGroup wrap columns={4} gutterSize="xl">
             {selectedTowns.map((town) => (
-              <EuiFlexItem key={town.label}>
-                <IomLocationCard location={town}></IomLocationCard>
+              <EuiFlexItem key={town.name}>
+                <IomPlaceCard place={town}></IomPlaceCard>
               </EuiFlexItem>
             ))}
           </EuiFlexGroup>

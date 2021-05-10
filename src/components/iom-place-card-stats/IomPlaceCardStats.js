@@ -1,7 +1,7 @@
 import React from "react";
 
 // Styles
-import "./IomLocationCardStats.scss";
+import "./IomPlaceCardStats.scss";
 
 // Utilities
 import { withUnits } from "../../utils/formatters";
@@ -21,7 +21,7 @@ const IomCardStats = ({
   rainChance,
   rainPredictions,
 }) => (
-  <EuiFlexGroup className="iom-location-card__stats" gutterSize="l">
+  <EuiFlexGroup className="iom-place-card__stats" gutterSize="l">
     <EuiFlexItem>
       <EuiStat
         textAlign="center"
@@ -32,7 +32,7 @@ const IomCardStats = ({
         description="Temperature"
         isLoading={isLoading}
       >
-        <EuiText className="iom-location-card__stat-subtitle" size="xs">
+        <EuiText className="iom-place-card__stat-subtitle" size="xs">
           {!isLoading && (
             <>
               <div>
@@ -59,7 +59,7 @@ const IomCardStats = ({
         description="Rain chance"
         isLoading={isLoading}
       >
-        <EuiText className="iom-location-card__stat-subtitle" size="xs">
+        <EuiText className="iom-place-card__stat-subtitle" size="xs">
           {!isLoading && (
             <div>
               <EuiIcon type="tear" size="s" />

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 // Actions
 import collectionsActions from "../../store/actions/collections";
-import collectionsSelectors from "../../store/selectors/collections";
 
 // Elastic UI Components
 import { EuiButtonIcon, EuiPopover, EuiContextMenu } from "@elastic/eui";
@@ -14,7 +13,7 @@ import IomDeleteConfirmation from "../iom-delete-confirmation/IomDeleteConfirmat
 const IomCollectionCardActions = ({
   collection,
   isLoading,
-  deleteCollection,
+  deleteExistingCollection,
 }) => {
   const [isPopoverOpen, setPopover] = useState(false);
 
@@ -25,8 +24,8 @@ const IomCollectionCardActions = ({
       content: (
         <IomDeleteConfirmation
           isLoading={isLoading}
-          onConfirm={() => deleteCollection({ collection })}
-          text="Are you sure? The collection and all the locations stored within will be
+          onConfirm={() => deleteExistingCollection({ collection })}
+          text="Are you sure? The collection and all the places stored within will be
         lost forever."
         />
       ),
@@ -56,7 +55,4 @@ const IomCollectionCardActions = ({
   );
 };
 
-export default connect(
-  collectionsSelectors,
-  collectionsActions
-)(IomCollectionCardActions);
+export default connect(null, collectionsActions)(IomCollectionCardActions);

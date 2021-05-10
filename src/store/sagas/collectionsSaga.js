@@ -1,10 +1,14 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
+import C from "../constants";
+
+// Services
 import {
   deleteCollection,
   getCollections,
   postCollection,
+  postPlace,
+  deletePlace,
 } from "../../services/collections";
-import C from "../constants";
 
 //Toasts
 import {
@@ -21,8 +25,12 @@ import {
   getCollectionsFailed,
   postCollectionSucceeded,
   postCollectionFailed,
-  deleteCollectionSucceeded,
-  deleteCollectionFailed,
+  deleteExistingCollectionSucceeded,
+  deleteExistingCollectionFailed,
+  addPlaceToCollectionSucceeded,
+  addPlaceToCollectionFailed,
+  removePlaceFromCollectionSucceeded,
+  removePlaceFromCollectionFailed,
 } from "../actions/collections";
 
 function* getCollectionsList() {
@@ -38,10 +46,10 @@ function* getCollectionsList() {
 function* createNewCollection({ payload }) {
   try {
     const { token } = yield select(authSelectors);
-    const { name, icon, locations } = payload.collection;
+    const { name, icon, places } = payload.collection;
     const { collection } = yield call(
       postCollection,
-      { name, icon, locations },
+      { name, icon, places },
       { token }
     );
     yield put(postCollectionSucceeded({ collection }));
@@ -66,20 +74,66 @@ function* deleteExistingCollection({ payload }) {
   try {
     const { token } = yield select(authSelectors);
     const { collection } = payload;
-    yield call(deleteCollection, { collectionId: collection._id }, { token });
-    yield put(deleteCollectionSucceeded({ collection: payload.collection }));
+    yield call(deleteCollection, { collection }, { token });
+    yield put(deleteExistingCollectionSucceeded({ collection }));
     addToast(
       successToast({
         title: "Collection deleted!",
-        text: `Sad to see ${payload.collection.name} go...`,
+        text: `Sad to see ${collection.name} go...`,
       })
     );
   } catch (error) {
-    yield put(deleteCollectionFailed({ message: error.message }));
+    yield put(deleteExistingCollectionFailed({ message: error.message }));
     addToast(
       errorToast({
         title: "Collection could not be deleted!",
         text: "No can do, the collection doesn't want to leave us.",
+      })
+    );
+  }
+}
+
+function* addPlaceToCollection({ payload }) {
+  try {
+    const { token } = yield select(authSelectors);
+    const { collection, place } = payload;
+    yield call(postPlace, { place, collection }, { token });
+    yield put(addPlaceToCollectionSucceeded({ collection, place }));
+    addToast(
+      successToast({
+        title: "New place added!",
+        text: `The place ${place.name} has been added to the ${collection.name} collection`,
+      })
+    );
+  } catch (error) {
+    yield put(addPlaceToCollectionFailed({ message: error.message }));
+    addToast(
+      errorToast({
+        title: "Place could not be added!",
+        text: "Something went wrong...",
+      })
+    );
+  }
+}
+
+function* removePlaceFromCollection({ payload }) {
+  try {
+    const { token } = yield select(authSelectors);
+    const { collection, place } = payload;
+    yield call(deletePlace, { place }, { token });
+    yield put(removePlaceFromCollectionSucceeded({ collection, place }));
+    addToast(
+      successToast({
+        title: "Place removed!",
+        text: `The place ${place.name} no longer belongs to the ${collection.name} collection`,
+      })
+    );
+  } catch (error) {
+    yield put(removePlaceFromCollectionFailed({ message: error.message }));
+    addToast(
+      errorToast({
+        title: "Place could not be removed!",
+        text: "Something went wrong...",
       })
     );
   }
@@ -95,4 +149,15 @@ export function* postCollectionSaga() {
 
 export function* deleteCollectionSaga() {
   yield takeEvery(C.COLLECTION_DELETE_REQUESTED, deleteExistingCollection);
+}
+
+export function* addPlaceToCollectionSaga() {
+  yield takeEvery(C.COLLECTION_ADD_PLACE_REQUESTED, addPlaceToCollection);
+}
+
+export function* removePlaceFromCollectionSaga() {
+  yield takeEvery(
+    C.COLLECTION_DELETE_PLACE_REQUESTED,
+    removePlaceFromCollection
+  );
 }

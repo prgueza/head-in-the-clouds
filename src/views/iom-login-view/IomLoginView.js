@@ -1,4 +1,4 @@
-import "./IomLoginView.css";
+import "./IomLoginView.scss";
 import IomAuthPanel from "../../components/iom-auth-panel/IomAuthPanel";
 
 function IomLoginView() {

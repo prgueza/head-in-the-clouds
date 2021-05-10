@@ -27,7 +27,7 @@ const IomSigninForm = ({ isLoading, signIn }) => {
   };
 
   return (
-    <div className="auth-panel__form">
+    <div className="iom-auth-panel__form">
       <EuiTitle size="s">
         <h3>Sign in to your account.</h3>
       </EuiTitle>
@@ -43,7 +43,7 @@ const IomSigninForm = ({ isLoading, signIn }) => {
             onChange={(e) => setIdentifier(e.target.value)}
           />
         </EuiFormRow>
-        <EuiFormRow label="Password">
+        <EuiFormRow className="iom-auth-panel__form-row" label="Password">
           <EuiFieldPassword
             type="dual"
             value={password}
@@ -52,6 +52,7 @@ const IomSigninForm = ({ isLoading, signIn }) => {
         </EuiFormRow>
         <EuiFormRow hasChildLabel={false}>
           <EuiSwitch
+            className="iom-auth-panel__form-switch"
             name="switch"
             label="Keep me logged in!"
             checked={keepLoggedIn}
@@ -59,12 +60,19 @@ const IomSigninForm = ({ isLoading, signIn }) => {
           />
         </EuiFormRow>
         <EuiSpacer />
-        <div className="auth-panel__form-footer">
-          <EuiButton isLoading={isLoading} type="submit" fill>
+        <div className="iom-auth-panel__form-footer">
+          <EuiButton
+            className="iom-auth-panel__form-button"
+            isLoading={isLoading}
+            type="submit"
+            fill
+          >
             Log in
           </EuiButton>
           <Link to="/auth/signup">
-            <EuiLink>Not registered yet?</EuiLink>
+            <EuiLink className="iom-auth-panel__form-link">
+              Not registered yet?
+            </EuiLink>
           </Link>
         </div>
       </EuiForm>

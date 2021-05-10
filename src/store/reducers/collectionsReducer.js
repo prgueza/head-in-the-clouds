@@ -4,16 +4,22 @@ const initialState = () => ({
   isLoading: false,
   error: null,
   query: "",
-  collections: [],
+  list: [],
 });
 
 function collectionsReducer(state = initialState(), action) {
   switch (action.type) {
+    case C.COLLECTION_SET:
+      return { ...state, list: action.payload.collection };
     case C.COLLECTIONS_FETCH_REQUESTED:
       return { ...state, isLoading: true };
     case C.COLLECTION_POST_REQUESTED:
       return { ...state, isLoading: true };
     case C.COLLECTION_DELETE_REQUESTED:
+      return { ...state, isLoading: true };
+    case C.COLLECTION_ADD_PLACE_REQUESTED:
+      return { ...state, isLoading: true };
+    case C.COLLECTION_DELETE_PLACE_REQUESTED:
       return { ...state, isLoading: true };
     case C.COLLECTIONS_QUERIED:
       return { ...state, query: action.payload.query };
@@ -21,7 +27,7 @@ function collectionsReducer(state = initialState(), action) {
       return {
         ...state,
         isLoading: false,
-        collections: action.payload.collections,
+        list: action.payload.collections,
       };
     case C.COLLECTIONS_FETCH_FAILED:
       return {
@@ -33,7 +39,7 @@ function collectionsReducer(state = initialState(), action) {
       return {
         ...state,
         isLoading: false,
-        collections: [...state.collections, action.payload.collection],
+        list: [...state.list, action.payload.collection],
       };
     case C.COLLECTION_POST_FAILED:
       return {
@@ -45,11 +51,51 @@ function collectionsReducer(state = initialState(), action) {
       return {
         ...state,
         isLoading: false,
-        collections: state.collections.filter(
+        list: state.list.filter(
           ({ _id }) => _id !== action.payload.collection._id
         ),
       };
     case C.COLLECTION_DELETE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+    case C.COLLECTION_ADD_PLACE_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        list: state.list.map((collection) =>
+          collection._id === action.payload.collection._id
+            ? {
+                ...collection,
+                places: [...collection.places, action.payload.place],
+              }
+            : collection
+        ),
+      };
+    case C.COLLECTION_ADD_PLACE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+    case C.COLLECTION_DELETE_PLACE_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        list: state.list.map((collection) =>
+          collection._id === action.payload.collection._id
+            ? {
+                ...collection,
+                places: collection.places.filter(
+                  ({ _id }) => _id !== action.payload.place._id
+                ),
+              }
+            : collection
+        ),
+      };
+    case C.COLLECTION_DELETE_PLACE_FAILED:
       return {
         ...state,
         isLoading: false,

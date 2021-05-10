@@ -47,9 +47,11 @@ class IomApp extends React.Component {
 
   themeCheck() {
     const hour = dayjs().hour();
-    const { theme } = THEMES.find(({ from, to }) => hour >= from && hour < to);
+    const { theme } = THEMES.find(
+      ({ from, to }) => hour >= from && hour < to
+    ) || { theme: "day" };
     const body = document.querySelector("body");
-    if (theme !== this.state.theme) {
+    if (!body.classList.contains(`theme--${theme}`)) {
       body.classList.remove(`theme--${this.state.theme}`);
       body.classList.add(`theme--${theme}`);
       this.setState({ theme });

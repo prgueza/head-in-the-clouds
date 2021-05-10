@@ -1,21 +1,26 @@
 import React from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 // Api
-import { getWeatherByLocation } from "../../services/weather";
+import { getWeatherByPlace } from "../../services/weather";
+
+// Selectors
+import collectionsSelectors from "../../store/selectors/collections";
 
 // Styles
-import "./IomLocationCard.scss";
+import "./IomPlaceCard.scss";
 
 // Elastic UI Components
 import { EuiCard, EuiIcon, EuiLoadingChart, EuiTitle } from "@elastic/eui";
 
 // Components
 import IomTemperatureChart from "../iom-temperature-chart/IomTemperatureChart";
-import IomLocationCardStats from "../iom-location-card-stats/IomLocationCardStats";
-import IomLocationCardActions from "../iom-location-card-actions/IomLocationCardActions";
+import IomPlaceCardStats from "../iom-place-card-stats/IomPlaceCardStats";
+import IomPlaceCardActions from "../iom-place-card-actions/IomPlaceCardActions";
 
-class IomLocationCard extends React.Component {
+class IomPlaceCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,10 +62,10 @@ class IomLocationCard extends React.Component {
         rainChance,
         rainPredictions,
         predictions,
-      } = await getWeatherByLocation(
+      } = await getWeatherByPlace(
         {
-          code: this.props.location.code,
-          countyCode: this.props.location.countyCode,
+          code: this.props.place.code,
+          countyCode: this.props.place.countyCode,
         },
         { cancelToken: this.state.request.token }
       );
@@ -76,30 +81,31 @@ class IomLocationCard extends React.Component {
   render() {
     return (
       <EuiCard
-        className="iom-location-card"
+        className="iom-place-card"
         icon={<EuiIcon size="xxl" type={this.state.icon} />}
         textAlign="center"
         title={
-          <EuiTitle className="iom-location-card__title" size="l">
-            <h1>{this.props.location.label}</h1>
+          <EuiTitle className="iom-place-card__title" size="l">
+            <h1>{this.props.place.name}</h1>
           </EuiTitle>
         }
       >
-        <div className="iom-location-card__actions">
-          <IomLocationCardActions
-            location={this.props.location}
+        <div className="iom-place-card__actions">
+          <IomPlaceCardActions
+            collection={this.props.collectionFromRoute}
+            place={this.props.place}
             onRefresh={this.getWeatherInformation}
           />
         </div>
-        <div className="iom-location-card__stats-container">
-          <IomLocationCardStats
+        <div className="iom-place-card__stats-container">
+          <IomPlaceCardStats
             isLoading={this.state.isLoading}
             temperature={this.state.temperature}
             rainChance={this.state.rainChance}
             rainPredictions={this.state.rainPredictions}
           />
         </div>
-        <div className="iom-location-card__chart-container">
+        <div className="iom-place-card__chart-container">
           {this.state.isLoading ? (
             <EuiLoadingChart size="xl" />
           ) : (
@@ -111,4 +117,4 @@ class IomLocationCard extends React.Component {
   }
 }
 
-export default IomLocationCard;
+export default withRouter(connect(collectionsSelectors)(IomPlaceCard));

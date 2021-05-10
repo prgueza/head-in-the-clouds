@@ -23,7 +23,7 @@ function IomAuthPanel() {
   return auth.isLoggedIn ? (
     <Redirect to="/weather" />
   ) : (
-    <div className="auth-panel">
+    <div className="iom-auth-panel">
       <EuiPanel paddingSize="l">
         <Switch>
           <Route exact path={`${path}/login`}>

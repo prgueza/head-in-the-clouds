@@ -25,27 +25,32 @@ class IomExistingCollectionForm extends React.Component {
       selectedCollection: null,
       isSending: false,
     };
-    this.handleNewCollection = this.handleNewCollection.bind(this);
     this.setCollection = this.setCollection.bind(this);
-    this.mapCollectionToOption = this.mapCollectionToOption.bind(this);
+    this.reduceCollectionsToOptions = this.reduceCollectionsToOptions.bind(
+      this
+    );
   }
 
   componentDidMount() {
     this.props.getCollections();
   }
 
-  handleNewCollection() {}
-
   setCollection(selectedCollection) {
     this.setState({ selectedCollection });
   }
 
-  mapCollectionToOption(collection) {
-    return {
-      value: collection,
-      icon: collection.icon,
-      inputDisplay: <EuiText> {collection.name} </EuiText>,
-    };
+  reduceCollectionsToOptions(collections, collection) {
+    const placeNotAlreadyInCollection = collection.places.every(
+      (place) => place.code !== this.props.place.code
+    );
+    if (placeNotAlreadyInCollection) {
+      collections.push({
+        value: collection,
+        icon: collection.icon,
+        inputDisplay: <EuiText> {collection.name} </EuiText>,
+      });
+    }
+    return collections;
   }
 
   render() {
@@ -58,7 +63,11 @@ class IomExistingCollectionForm extends React.Component {
         <EuiFlexGroup gutterSize="xs">
           <EuiFlexItem>
             <EuiSuperSelect
-              options={this.props.collections.map(this.mapCollectionToOption)}
+              placeholder="Collection"
+              options={[...this.props.collections].reduce(
+                this.reduceCollectionsToOptions,
+                []
+              )}
               valueOfSelected={this.state.selectedCollection}
               onChange={(value) => this.setCollection(value)}
               disabled={this.isSending}
@@ -71,6 +80,12 @@ class IomExistingCollectionForm extends React.Component {
               iconType="save"
               iconSize="m"
               size="m"
+              onClick={() =>
+                this.props.addPlaceToCollection({
+                  collection: this.state.selectedCollection,
+                  place: this.props.place,
+                })
+              }
               aria-label="save to existing collection"
             ></EuiButtonIcon>
           </EuiFlexItem>

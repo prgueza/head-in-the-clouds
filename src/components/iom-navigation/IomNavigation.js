@@ -17,6 +17,7 @@ function IomNavigation() {
         <EuiTitle size="xs">
           <h1 className="iom-navigation__title">
             <EuiIcon
+              color="text"
               className="iom-navigation__title-icon"
               type="lensApp"
               size="l"

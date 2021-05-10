@@ -17,13 +17,13 @@ export const getCollections = async ({ token }) => {
 };
 
 export const postCollection = async (
-  { name, icon = "visMapCoordinate", locations = [] },
+  { name, icon = "visMapCoordinate", places = [] },
   { token }
 ) => {
   try {
     const { data: response } = await collectionsApi.post(
       "collections",
-      { name, icon, locations },
+      { name, icon, places },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -35,15 +35,65 @@ export const postCollection = async (
   }
 };
 
-export const deleteCollection = async ({ collectionId }, { token }) => {
+export const deleteCollection = async ({ collection }, { token }) => {
   try {
     const { data: response } = await collectionsApi.delete(
-      `collections/${collectionId}`,
+      `collections/${collection._id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
     return { collection: response.resource };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getPlaces = async ({ collection }, { token }) => {
+  try {
+    const { data: places } = await collectionsApi.get("places", {
+      params: { collection: collection._id },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return { places };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const postPlace = async ({ collection, place }, { token }) => {
+  try {
+    const { data: response } = await collectionsApi.post(
+      "places",
+      {
+        collectionId: collection._id,
+        name: place.name,
+        county: place.county,
+        code: place.code,
+        countyCode: place.countyCode,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return { place: response.place };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deletePlace = async ({ place }, { token }) => {
+  try {
+    const { data: response } = await collectionsApi.delete(
+      `places/${place._id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return { place: response.place };
   } catch (error) {
     console.error(error);
     throw error;

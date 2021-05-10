@@ -1,7 +1,7 @@
 import IomWeatherView from "../views/iom-weather-view/IomWeatherView";
 import IomLoginView from "../views/iom-login-view/IomLoginView";
 import IomCollectionsView from "../views/iom-collections-view/IomCollectionsView";
-import IomLocationsView from "../views/iom-locations-view/IomLocationsView";
+import IomPlacesView from "../views/iom-places-view/IomPlacesView";
 import IomRouteView from "../views/iom-route-view/IomRouteView";
 
 const routes = [
@@ -22,21 +22,21 @@ const routes = [
     component: IomWeatherView,
   },
   {
-    name: "collections-locations",
+    name: "collections-places",
     path: "/collections",
     component: IomRouteView,
     protected: true,
     children: [
       {
-        name: "locations",
+        name: "collections",
         path: "/collections",
         component: IomCollectionsView,
         exact: true,
       },
       {
-        name: "locations",
-        path: "/collections/:id/locations",
-        component: IomLocationsView,
+        name: "places",
+        path: "/collections/:id/places",
+        component: IomPlacesView,
       },
     ],
   },

@@ -10,12 +10,14 @@ import townsReducer from "./reducers/townsReducer";
 import collectionsReducer from "./reducers/collectionsReducer";
 
 // Sagas
-import { SignUpSaga, SignInSaga } from "./sagas/authSaga";
 import townsSaga from "./sagas/townsSaga";
+import { SignUpSaga, SignInSaga } from "./sagas/authSaga";
 import {
   getCollectionsSaga,
   postCollectionSaga,
   deleteCollectionSaga,
+  addPlaceToCollectionSaga,
+  removePlaceFromCollectionSaga,
 } from "./sagas/collectionsSaga";
 
 const reducer = combineReducers({
@@ -41,5 +43,7 @@ sagaMiddleware.run(townsSaga);
 sagaMiddleware.run(getCollectionsSaga);
 sagaMiddleware.run(postCollectionSaga);
 sagaMiddleware.run(deleteCollectionSaga);
+sagaMiddleware.run(addPlaceToCollectionSaga);
+sagaMiddleware.run(removePlaceFromCollectionSaga);
 
 export default store;

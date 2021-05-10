@@ -17,13 +17,13 @@ import {
   EuiButtonIcon,
 } from "@elastic/eui";
 
-const IomNewCollectionForm = ({ location, isLoading, postCollection }) => {
+const IomNewCollectionForm = ({ place, isLoading, postCollection }) => {
   const [collectionName, setCollectionName] = useState("");
 
   const handleNewCollection = (e) => {
     e.preventDefault();
     postCollection({
-      collection: { name: collectionName, locations: [location] },
+      collection: { name: collectionName, places: [place] },
     });
   };
 

@@ -2,7 +2,9 @@
 @import "base/variables.module";
 
 :root {
-  --main-title-color: black;
+  --accent-color-primary: #5896f5;
+  --accent-color-secondary: #ffffff;
+  --color-neutral: #969696;
   --bg-color: #abd3fc;
   --color-1: #4c7aee;
   --color-2: #5896f5;
@@ -34,7 +36,8 @@ body {
 .app {
   padding: 56px 32px;
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .iom-section {
@@ -48,6 +51,9 @@ body {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
+    &--column {
+      flex-direction: column;
+    }
   }
   &__header {
     margin: 4rem 0;
