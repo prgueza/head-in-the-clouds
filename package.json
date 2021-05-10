@@ -1,5 +1,5 @@
 {
-  "name": "whats-the-weather-like",
+  "name": "head-in-the-clouds",
   "version": "1.0.0",
   "private": true,
   "description": "React + Redux based SPA for the IOMED Technical interview",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pedro-rodalia/whats-the-weather-like.git"
+    "url": "https://github.com/pedro-rodalia/head-in-the-clouds.git"
   },
   "dependencies": {
     "@elastic/charts": "^29.1.0",
