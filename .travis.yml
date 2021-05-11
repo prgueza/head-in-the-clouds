@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 14
+before_deploy:
+  - npm install netlify-cli -g
+jobs:
+  include:
+    - stage: test
+      script: npm test
+    - stage: build
+      script: npm run build
+deploy:
+  provider: script
+  edge: true
+  script: netlify deploy --dir=build --prod
+  on:
+    branch: main
