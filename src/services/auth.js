@@ -6,14 +6,14 @@ const authApi = axios.create({
 
 export const signIn = async ({ identifier, password }) => {
   try {
-    const { data: response } = await authApi.post("http://localhost/signin", {
+    const { data: response } = await authApi.post("signin", {
       identifier,
       password,
     });
     return { user: response.user, token: response.token };
   } catch (error) {
-    console.error(error.response.data.error);
-    throw error.response.data;
+    console.error(error);
+    throw error;
   }
 };
 
@@ -32,7 +32,7 @@ export const signUp = async ({
     });
     return { user: response.user, token: response.token };
   } catch (error) {
-    console.error(error.response.data.error);
-    throw error.response.data;
+    console.error(error);
+    throw error;
   }
 };

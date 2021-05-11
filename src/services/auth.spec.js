@@ -22,7 +22,7 @@ describe("Sign in service test suite", () => {
       await signIn({ identifier: null, password: "password" });
     } catch (error) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(error).toEqual({ error: expect.any(String) });
+      expect(error).not.toBeNull();
     }
   });
 });
@@ -51,7 +51,7 @@ describe("Sign up service test suite", () => {
       await signUp({ identifier: null, password: "password" });
     } catch (error) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(error).toEqual({ error: expect.any(String) });
+      expect(error).not.toBeNull();
     }
   });
 });
