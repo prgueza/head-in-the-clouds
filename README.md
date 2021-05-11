@@ -1,6 +1,11 @@
-# What's The Weather Like!
+# Head in the clouds.
+
+[![Build Status](https://travis-ci.com/pedro-rodalia/head-in-the-clouds.svg?token=riggMLJgELzxGH7R9sJn&branch=main)](https://travis-ci.com/pedro-rodalia/head-in-the-clouds)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/13d31973-47fb-469c-9a91-0c490499cf28/deploy-status)](https://app.netlify.com/sites/head-in-the-clouds/deploys)
 
 React + Redux based SPA for the IOMED Technical interview
+
+![alt text][showcase]
 
 ## TODOs:
 
@@ -11,7 +16,7 @@ React + Redux based SPA for the IOMED Technical interview
   - [x] Use ​redux​ as a state manager.
   - [x] Use redux-saga to manage the persistence module.
   - [x] Upload the app source code to Github.
-  - [ ] Make the website available through Netlify.
+  - [x] Make the website available through Netlify.
   - [ ] Test the application functionallity.
   - [x] (Optional) Use ​reduxjs-reselect​ to enhance the state management.
   - [x] (Optional) Use react-router to manage routing.
@@ -23,3 +28,5 @@ React + Redux based SPA for the IOMED Technical interview
   - [x] The user should be able to save a search result (multiple cities if needed) so that when the user comes back online he/she will be able to go through these saved results.
   - [x] The app must allow the user to register and login in order to save collections of results.
   - [x] The user must be able to sort and delete saved search results.
+
+[showcase]: .github/showcase.png

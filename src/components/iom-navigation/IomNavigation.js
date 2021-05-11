@@ -22,7 +22,7 @@ function IomNavigation() {
               type="lensApp"
               size="l"
             />
-            What's the weather like?
+            Head in the clouds
           </h1>
         </EuiTitle>,
       ],
