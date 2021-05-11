@@ -3,12 +3,11 @@ node_js:
   - 14
 before_deploy:
   - npm install netlify-cli -g
+  - npm run build
 jobs:
   include:
     - stage: test
       script: npm test
-    - stage: build
-      script: npm run build
 deploy:
   provider: script
   edge: true
