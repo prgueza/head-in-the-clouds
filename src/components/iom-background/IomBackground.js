@@ -27,6 +27,7 @@ const IomBackground = () => {
   return (
     <div className="background">
       <svg
+        data-testid="clouds-container"
         className="clouds"
         width="100%"
         height="545"
@@ -34,7 +35,7 @@ const IomBackground = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         {paths.map(({ id, path }) => (
-          <path key={id} className="cloud" d={path} />
+          <path data-testid="cloud" key={id} className="cloud" d={path} />
         ))}
       </svg>
     </div>

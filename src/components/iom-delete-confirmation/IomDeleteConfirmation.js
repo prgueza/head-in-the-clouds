@@ -9,6 +9,7 @@ const IomDeleteConfirmation = ({ text, onConfirm, isLoading }) => {
     <div className="iom-delete-confirmation">
       <p>{text}</p>
       <EuiButton
+        data-testid="delete-button"
         size="s"
         color="danger"
         isLoading={isLoading}

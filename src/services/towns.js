@@ -12,5 +12,6 @@ export const getTowns = async () => {
     return { towns };
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
