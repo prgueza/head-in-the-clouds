@@ -1,6 +1,6 @@
 import C from "../constants";
 
-const initialState = () => ({
+export const initialState = () => ({
   isLoading: false,
   error: null,
   query: "",
