@@ -29,7 +29,7 @@ jobs:
     - name: Save artifacts for next job
       uses: actions/upload-artifact@v2
       with:
-        name: app
+        name: base
         path: ./
 
   install:
@@ -42,10 +42,16 @@ jobs:
     - name: Get artifacts from last job
       uses: actions/download-artifact@v2
       with:
-        name: app
+        name: base
     
     - name: Install dependencies
       run: npm ci
+      
+    - name: Set artifacts from last job
+      uses: actions/download-artifact@v2
+      with:
+        name: app
+        path: ./
 
   test:
   
@@ -54,6 +60,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Get artifacts from last job
+      uses: actions/download-artifact@v2
+      with:
+        name: app
+        
     - name: Run the tests
       run: npm test -- --coverage
       
@@ -69,6 +80,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Get artifacts from last job
+      uses: actions/download-artifact@v2
+      with:
+        name: app
+        
     - name: Build
       run: npm run build
       
