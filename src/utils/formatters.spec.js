@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { withUnits, asDate } from "./formatters";
 
 describe("Formatters helpers test suite", () => {
@@ -9,6 +8,8 @@ describe("Formatters helpers test suite", () => {
       [10, undefined, "10"],
       [undefined, "km", "- km"],
       [undefined, undefined, "-"],
+      ["string", undefined, "-"],
+      [null, undefined, "-"],
     ])(
       "If value is %s and units is %s the result is %s",
       (value, units, expected) => {

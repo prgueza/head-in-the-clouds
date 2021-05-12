@@ -93,6 +93,7 @@ describe("Mappers test suite", () => {
         expect.assertions(0);
         weatherMapper({});
       } catch (error) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(error).not.toBeNull(error);
       }
     });

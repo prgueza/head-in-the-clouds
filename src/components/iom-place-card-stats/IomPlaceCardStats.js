@@ -65,7 +65,8 @@ const IomCardStats = ({
               <EuiIcon type="tear" size="s" />
               <span>
                 {withUnits(
-                  Math.max(...(rainPredictions?.values || [])),
+                  !!rainPredictions?.values?.length &&
+                    Math.max(...rainPredictions.values),
                   `${rainPredictions?.units} (max)`
                 )}
               </span>
