@@ -13,7 +13,7 @@ env:
   REACT_APP_WEATHER_API_URL: ${{ secrets.REACT_APP_WEATHER_API_URL }}
 
 jobs:
-  build:
+  checkout:
 
     runs-on: ubuntu-latest
 
@@ -30,6 +30,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+  install:
+
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Install dependencies
       run: npm ci
 
