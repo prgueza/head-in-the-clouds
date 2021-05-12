@@ -13,24 +13,24 @@ const weatherModel = {
   date: expect.any(String),
   sky: expect.any(String),
   rainChance: {
-    value: expect.any(String),
+    value: expect.any(Number),
     units: "%",
   },
   rainPredictions: {
-    values: expect.arrayContaining([expect.any(String)]),
+    values: expect.arrayContaining([expect.any(Number)]),
     units: "%",
   },
   predictions: expect.arrayContaining([
     expect.objectContaining({
       date: expect.any(String),
-      max: expect.any(String),
-      min: expect.any(String),
+      max: expect.any(Number),
+      min: expect.any(Number),
     }),
   ]),
   temperature: {
-    current: { value: expect.any(String), units: "ºC" },
-    max: { value: expect.any(String), units: "ºC" },
-    min: { value: expect.any(String), units: "ºC" },
+    current: { value: expect.any(Number), units: "ºC" },
+    max: { value: expect.any(Number), units: "ºC" },
+    min: { value: expect.any(Number), units: "ºC" },
   },
 };
 
@@ -72,7 +72,7 @@ describe("Mappers test suite", () => {
       municipio: { NOMBRE: "Town name" },
       fecha: "2020-01-01T12:00:00Z",
       stateSky: { description: "Cloudy" },
-      pronostico: { hoy: { prob_precipitacion: ["0", "1", "2"] } },
+      pronostico: { hoy: { prob_precipitacion: [0, 1, 2] } },
       proximos_dias: [
         {
           "@attributes": { fecha: "2020-01-01T12:00:00Z" },

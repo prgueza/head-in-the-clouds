@@ -14,23 +14,23 @@ export function weatherMapper(weather) {
     date: weather.fecha,
     sky: weather.stateSky?.description,
     rainChance: {
-      value: weather.pronostico?.hoy.prob_precipitacion?.[0],
+      value: +weather.pronostico?.hoy.prob_precipitacion?.[0],
       units: "%",
     },
     rainPredictions: {
-      values: weather.pronostico?.hoy.prob_precipitacion,
+      values: weather.pronostico?.hoy.prob_precipitacion.map((v) => +v),
       units: "%",
     },
     predictions:
       weather.proximos_dias?.map((prediction) => ({
         date: prediction?.["@attributes"]?.fecha,
-        max: prediction?.temperatura?.maxima,
-        min: prediction?.temperatura?.minima,
+        max: +prediction?.temperatura?.maxima,
+        min: +prediction?.temperatura?.minima,
       })) || [],
     temperature: {
-      current: { value: weather?.temperatura_actual, units: "ºC" },
-      max: { value: weather?.temperaturas?.max, units: "ºC" },
-      min: { value: weather?.temperaturas?.min, units: "ºC" },
+      current: { value: +weather?.temperatura_actual, units: "ºC" },
+      max: { value: +weather?.temperaturas?.max, units: "ºC" },
+      min: { value: +weather?.temperaturas?.min, units: "ºC" },
     },
   };
 }
