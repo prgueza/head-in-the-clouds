@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const withUnits = (value, unit) => `${value ?? "-"} ${unit}`;
+export const withUnits = (value, unit) => [value ?? "-", unit].join(" ").trim();
 export const asDate = (
   date,
   outputFormat = "MMMM D, YYYY",

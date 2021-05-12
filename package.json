@@ -50,6 +50,12 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/test/*",
+      "src/setupTests.js"
+    ]
+  },
   "devDependencies": {
     "jest-mock-console": "^1.1.0",
     "msw": "^0.28.2"
