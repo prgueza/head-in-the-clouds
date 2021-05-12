@@ -1,6 +1,6 @@
 # Head in the clouds.
 
-[![Build Status](https://travis-ci.com/pedro-rodalia/head-in-the-clouds.svg?token=riggMLJgELzxGH7R9sJn&branch=main)](https://travis-ci.com/pedro-rodalia/head-in-the-clouds)
+[![CI/CD](https://github.com/pedro-rodalia/head-in-the-clouds/actions/workflows/main.yml/badge.svg)](https://github.com/pedro-rodalia/head-in-the-clouds/actions/workflows/main.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/13d31973-47fb-469c-9a91-0c490499cf28/deploy-status)](https://app.netlify.com/sites/head-in-the-clouds/deploys)
 
 React + Redux based SPA for the IOMED Technical interview
