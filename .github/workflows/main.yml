@@ -48,7 +48,7 @@ jobs:
       run: npm ci
       
     - name: Set artifacts from last job
-      uses: actions/download-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: app
         path: ./
