@@ -39,11 +39,6 @@ jobs:
         
     - name: Build
       run: npm run build
-
-    - name: Get build directory
-      uses: actions/download-artifact@v2
-      with:
-        name: build
         
     - name: Publish
       uses: netlify/actions/cli@master
