@@ -1,5 +1,6 @@
 import "./IomAuthPanel.scss";
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Switch,
@@ -26,9 +27,11 @@ the forms regarding the route path and provides them with both the action they h
 back and the isLoading property from the Auth Store.
 */
 
-function IomAuthPanel({ isLoading, signIn, signUp }) {
+function IomAuthPanel({ isLoggedIn, isLoading, signIn, signUp }) {
   const { path } = useRouteMatch();
-  return (
+  return isLoggedIn ? (
+    <Redirect to="/weather" />
+  ) : (
     <div className="iom-auth-panel">
       <EuiPanel paddingSize="l">
         <Switch>
