@@ -19,17 +19,19 @@ const IomPlacesView = ({ collectionFromRoute }) => {
           <h1>{collectionFromRoute.name}</h1>
         </EuiTitle>
       </div>
-      <div className="iom-section__content">
-        <EuiFlexGroup wrap columns={4} gutterSize="xl">
-          {collectionFromRoute?.places.map((place) => (
-            <EuiFlexItem key={place.name}>
-              <IomPlaceCard
-                place={place}
-                collection={collectionFromRoute}
-              ></IomPlaceCard>
-            </EuiFlexItem>
-          ))}
-        </EuiFlexGroup>
+      <div className="iom-section__content-wrapper">
+        <div className="iom-section__content">
+          <EuiFlexGroup wrap columns={4} gutterSize="xl">
+            {collectionFromRoute?.places.map((place) => (
+              <EuiFlexItem key={place.name}>
+                <IomPlaceCard
+                  place={place}
+                  collection={collectionFromRoute}
+                ></IomPlaceCard>
+              </EuiFlexItem>
+            ))}
+          </EuiFlexGroup>
+        </div>
       </div>
     </section>
   );
