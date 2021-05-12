@@ -13,7 +13,7 @@ env:
   REACT_APP_WEATHER_API_URL: ${{ secrets.REACT_APP_WEATHER_API_URL }}
 
 jobs:
-  checkout:
+  CI/CD:
 
     runs-on: ubuntu-latest
   
@@ -25,45 +25,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-        
-    - name: Save artifacts for next job
-      uses: actions/upload-artifact@v2
-      with:
-        name: base
-        path: ./
-
-  install:
-  
-    needs: checkout
-
-    runs-on: ubuntu-latest
-  
-    steps:
-    - name: Get artifacts from last job
-      uses: actions/download-artifact@v2
-      with:
-        name: base
     
     - name: Install dependencies
       run: npm ci
-      
-    - name: Set artifacts from last job
-      uses: actions/upload-artifact@v2
-      with:
-        name: app
-        path: ./
-
-  test:
-  
-    needs: install
-
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Get artifacts from last job
-      uses: actions/download-artifact@v2
-      with:
-        name: app
         
     - name: Run the tests
       run: npm test -- --coverage
@@ -72,35 +36,10 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-
-  build:
-  
-    needs: install
-
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Get artifacts from last job
-      uses: actions/download-artifact@v2
-      with:
-        name: app
         
     - name: Build
       run: npm run build
-      
-    - name: Save build directory
-      uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: /build
-  
-  deploy:
-  
-    needs: [test, build]
-    
-    runs-on: ubuntu-latest
-    
-    steps:
+
     - name: Get build directory
       uses: actions/download-artifact@v2
       with:
