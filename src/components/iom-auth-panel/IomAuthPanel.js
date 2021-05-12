@@ -1,14 +1,15 @@
 import "./IomAuthPanel.scss";
 import React from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Switch,
   Route,
   useRouteMatch,
-  Redirect,
 } from "react-router-dom";
 
-// Utilities
-import { useAuthContext } from "../../providers/IomAuthProvider";
+// Selectors and Actions
+import authSelectors from "../../store/selectors/auth";
+import authActions from "../../store/actions/auth";
 
 // Elastic UI Components
 import { EuiPanel } from "@elastic/eui";
@@ -17,20 +18,25 @@ import { EuiPanel } from "@elastic/eui";
 import IomSigninForm from "../iom-signin-form/IomSigninForm";
 import IomSignupForm from "../iom-signup-form/IomSignupForm";
 
-function IomAuthPanel() {
-  const auth = useAuthContext();
+/*
+IomAuthPanel
+
+This component is in charge of handling the login and signup to the application. It renders
+the forms regarding the route path and provides them with both the action they have to call
+back and the isLoading property from the Auth Store.
+*/
+
+function IomAuthPanel({ isLoading, signIn, signUp }) {
   const { path } = useRouteMatch();
-  return auth.isLoggedIn ? (
-    <Redirect to="/weather" />
-  ) : (
+  return (
     <div className="iom-auth-panel">
       <EuiPanel paddingSize="l">
         <Switch>
           <Route exact path={`${path}/login`}>
-            <IomSigninForm isLoading={auth.isLoading} />
+            <IomSigninForm isLoading={isLoading} signIn={signIn} />
           </Route>
           <Route exact path={`${path}/signup`}>
-            <IomSignupForm isLoading={auth.isLoading} />
+            <IomSignupForm isLoading={isLoading} signUp={signUp} />
           </Route>
         </Switch>
       </EuiPanel>
@@ -38,4 +44,4 @@ function IomAuthPanel() {
   );
 }
 
-export default IomAuthPanel;
+export default connect(authSelectors, authActions)(IomAuthPanel);

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import authActions from "../../store/actions/auth";
 
 // Elastic UI Components
 import {
@@ -16,14 +14,42 @@ import {
   EuiFieldPassword,
 } from "@elastic/eui";
 
+/*
+IomSigninForm
+
+This component is in charge of handling the user input and dispatching the singIn 
+action forwarding the user information and whether or not he/she wishes to stay 
+logged in after the tab or browser is closed.
+
+Both the identifier and password fields must be filled in for the action to be dispatched. 
+Here I have implemented a very basic validation but ideally it should be more explicit 
+about what fields fail and why.
+*/
+
 const IomSigninForm = ({ isLoading, signIn }) => {
   const [identifier, setIdentifier] = useState("genericuser");
   const [password, setPassword] = useState("password");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+
+  /*  
+    Validates fields and sets the isValid property for showing
+    the errors  within the form. As state updates may be asynchronous
+    return the result so the handleSignIn function can use it
+    immediately 
+  */
+  const validateFields = (fields = []) => {
+    const isValid = fields.every((f) => f.length);
+    setIsValid(isValid);
+    return isValid;
+  };
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    signIn({ identifier, password, keepLoggedIn });
+    const isValid = validateFields([identifier, password]);
+    if (isValid) {
+      signIn({ identifier, password, keepLoggedIn });
+    }
   };
 
   return (
@@ -34,16 +60,24 @@ const IomSigninForm = ({ isLoading, signIn }) => {
       <EuiSpacer />
       <EuiForm component="form" onSubmit={handleSignIn}>
         <EuiFormRow
+          isInvalid={!isValid}
           label="Username or email"
-          helpText="This is usually the email you registered with :)"
+          helpText="This is usually the email you registered with."
         >
           <EuiFieldText
             name="identifier"
             value={identifier}
-            onChange={(e) => setIdentifier(e.target.value)}
+            onChange={(e) => {
+              console.log(e);
+              setIdentifier(e.target.value);
+            }}
           />
         </EuiFormRow>
-        <EuiFormRow className="iom-auth-panel__form-row" label="Password">
+        <EuiFormRow
+          isInvalid={!isValid}
+          label="Password"
+          className="iom-auth-panel__form-row"
+        >
           <EuiFieldPassword
             type="dual"
             value={password}
@@ -80,4 +114,4 @@ const IomSigninForm = ({ isLoading, signIn }) => {
   );
 };
 
-export default connect(null, authActions)(IomSigninForm);
+export default IomSigninForm;

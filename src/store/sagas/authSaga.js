@@ -10,7 +10,7 @@ function* userSignIn({ payload }) {
       signInSignUpSucceeded({ user, token, keepLoggedIn: payload.keepLoggedIn })
     );
   } catch (error) {
-    signInSignUpFailed({ message: error.message });
+    yield put(signInSignUpFailed({ message: error.message }));
   }
 }
 
