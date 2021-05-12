@@ -33,18 +33,25 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+        
+    - name: Save artifacts for next job
+      uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: ./
 
   install:
   
     needs: checkout
 
     runs-on: ubuntu-latest
-    
-    container:
-      volumes:
-        - dir:./
   
     steps:
+    - name: Get artifacts from last job
+      uses: actions/download-artifact@v2
+      with:
+        name: app
+    
     - name: Install dependencies
       run: npm ci
 
