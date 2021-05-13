@@ -16,7 +16,7 @@ const IomPlacesView = ({ collectionFromRoute }) => {
     <section className="iom-section">
       <div className="iom-section__header">
         <EuiTitle size="l" className="iom-section__header-title">
-          <h1>{collectionFromRoute.name}</h1>
+          <h1>{collectionFromRoute?.name}</h1>
         </EuiTitle>
       </div>
       <div className="iom-section__content-wrapper">

@@ -53,7 +53,8 @@
   "jest": {
     "coveragePathIgnorePatterns": [
       "src/test/*",
-      "src/setupTests.js"
+      "src/setupTests.js",
+      "src/utils/reportWebVitals.js"
     ]
   },
   "devDependencies": {

@@ -17,6 +17,9 @@ import IomToastsList from "../../components/iom-toasts-list/IomToastsList";
 
 dayjs().hour();
 
+/*
+  Theme changes dinamically depending on the hour 
+*/
 const THEMES = [
   { theme: "dawn", from: 4, to: 10 },
   { theme: "day", from: 10, to: 16 },
@@ -32,11 +35,13 @@ class IomApp extends React.Component {
       themeCheckInterval: null,
     };
     this.themeCheck = this.themeCheck.bind(this);
-    this.themeCheck();
   }
 
   componentDidMount() {
     this.props.restore();
+    // Call themeCheck once to set theme and then schedule subsequent calls to update
+    // the theme if necessary
+    this.themeCheck();
     const interval = setInterval(() => this.themeCheck(), 5000);
     this.setState({ themeCheckInterval: interval });
   }
@@ -45,6 +50,13 @@ class IomApp extends React.Component {
     clearInterval(this.state.themeCheckInterval);
   }
 
+  /*
+    For simplicity, we are only using css vars as the way to manage theme changes.
+    Ideally we would also build a theme provider (similar to the auth provider
+    we use) to let the components react regarding the theme context.
+    As this application is pretty basic there was no need for this kind of
+    solution. Theme only changes a few styles.
+  */
   themeCheck() {
     const hour = dayjs().hour();
     const { theme } = THEMES.find(

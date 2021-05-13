@@ -82,7 +82,7 @@ const IomPlaceCardActions = ({
         aria-label="refresh"
         onClick={onRefresh}
       />
-      {auth.isLoggedIn && !location.pathname.includes("places") ? (
+      {auth.isLoggedIn && !location.pathname.includes("places") && (
         <EuiPopover
           id="contextMenuExample"
           button={
@@ -100,7 +100,8 @@ const IomPlaceCardActions = ({
         >
           <EuiContextMenu initialPanelId={0} panels={savePanel} />
         </EuiPopover>
-      ) : (
+      )}
+      {auth.isLoggedIn && location.pathname.includes("places") && (
         <EuiPopover
           id="contextMenuExample"
           button={
