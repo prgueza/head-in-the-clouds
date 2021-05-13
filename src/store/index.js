@@ -1,3 +1,4 @@
+import C from "./constants";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 
 // Middlewares
@@ -21,11 +22,19 @@ import {
   reorderCollectionsSaga,
 } from "./sagas/collectionsSaga";
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   auth: authReducer,
   towns: townsReducer,
   collections: collectionsReducer,
 });
+
+// Root reducer in charge of reseting the store upon Signout
+const reducer = (state, action) => {
+  if (action.type === C.SIGNOUT) {
+    return reducers(undefined, action);
+  }
+  return reducers(state, action);
+};
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [localStorageMiddleware, sagaMiddleware];

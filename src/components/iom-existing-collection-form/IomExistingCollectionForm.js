@@ -22,10 +22,11 @@ class IomExistingCollectionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCollection: null,
+      selectedCollection: "",
       isSending: false,
     };
     this.setCollection = this.setCollection.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.mapCollectionsToOptions = this.mapCollectionsToOptions.bind(this);
   }
 
@@ -35,6 +36,14 @@ class IomExistingCollectionForm extends React.Component {
 
   setCollection(selectedCollection) {
     this.setState({ selectedCollection });
+  }
+
+  handleSave() {
+    this.props.addPlaceToCollection({
+      collection: this.state.selectedCollection,
+      place: this.props.place,
+    });
+    this.props.onSave();
   }
 
   mapCollectionsToOptions(collections) {
@@ -59,7 +68,10 @@ class IomExistingCollectionForm extends React.Component {
               options={this.mapCollectionsToOptions(
                 this.props.availableCollections
               )}
-              valueOfSelected={this.state.selectedCollection}
+              valueOfSelected={
+                this.state.selectedCollection ||
+                this.props.availableCollections[0]
+              }
               onChange={(value) => this.setCollection(value)}
               disabled={this.isSending}
               isLoading={this.props.isLoading}
@@ -71,12 +83,7 @@ class IomExistingCollectionForm extends React.Component {
               iconType="save"
               iconSize="m"
               size="m"
-              onClick={() =>
-                this.props.addPlaceToCollection({
-                  collection: this.state.selectedCollection,
-                  place: this.props.place,
-                })
-              }
+              onClick={this.handleSave}
               aria-label="save to existing collection"
             ></EuiButtonIcon>
           </EuiFlexItem>

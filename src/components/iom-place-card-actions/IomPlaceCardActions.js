@@ -57,7 +57,12 @@ const IomPlaceCardActions = ({
     {
       id: 1,
       title: "Save to new Collection",
-      content: <IomNewCollectionForm place={place} />,
+      content: (
+        <IomNewCollectionForm
+          onSave={() => setSavePopover(false)}
+          place={place}
+        />
+      ),
     },
     {
       id: 2,
@@ -65,6 +70,7 @@ const IomPlaceCardActions = ({
       content: (
         <IomExistingCollectionForm
           place={place}
+          onSave={() => setSavePopover(false)}
           availableCollections={availableCollections}
         />
       ),

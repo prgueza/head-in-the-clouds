@@ -17,7 +17,7 @@ import {
   EuiButtonIcon,
 } from "@elastic/eui";
 
-const IomNewCollectionForm = ({ place, isLoading, postCollection }) => {
+const IomNewCollectionForm = ({ place, isLoading, onSave, postCollection }) => {
   const [collectionName, setCollectionName] = useState("");
 
   const handleNewCollection = (e) => {
@@ -25,6 +25,7 @@ const IomNewCollectionForm = ({ place, isLoading, postCollection }) => {
     postCollection({
       collection: { name: collectionName, places: [place] },
     });
+    onSave();
   };
 
   return (
