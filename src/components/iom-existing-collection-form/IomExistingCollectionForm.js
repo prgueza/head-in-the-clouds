@@ -26,9 +26,7 @@ class IomExistingCollectionForm extends React.Component {
       isSending: false,
     };
     this.setCollection = this.setCollection.bind(this);
-    this.reduceCollectionsToOptions = this.reduceCollectionsToOptions.bind(
-      this
-    );
+    this.mapCollectionsToOptions = this.mapCollectionsToOptions.bind(this);
   }
 
   componentDidMount() {
@@ -39,18 +37,12 @@ class IomExistingCollectionForm extends React.Component {
     this.setState({ selectedCollection });
   }
 
-  reduceCollectionsToOptions(collections, collection) {
-    const placeNotAlreadyInCollection = collection.places.every(
-      (place) => place.code !== this.props.place.code
-    );
-    if (placeNotAlreadyInCollection) {
-      collections.push({
-        value: collection,
-        icon: collection.icon,
-        inputDisplay: <EuiText> {collection.name} </EuiText>,
-      });
-    }
-    return collections;
+  mapCollectionsToOptions(collections) {
+    return collections.map((collection) => ({
+      value: collection,
+      icon: collection.icon,
+      inputDisplay: <EuiText> {collection.name} </EuiText>,
+    }));
   }
 
   render() {
@@ -64,9 +56,8 @@ class IomExistingCollectionForm extends React.Component {
           <EuiFlexItem>
             <EuiSuperSelect
               placeholder="Collection"
-              options={[...this.props.collections].reduce(
-                this.reduceCollectionsToOptions,
-                []
+              options={this.mapCollectionsToOptions(
+                this.props.availableCollections
               )}
               valueOfSelected={this.state.selectedCollection}
               onChange={(value) => this.setCollection(value)}

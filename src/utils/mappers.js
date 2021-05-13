@@ -18,7 +18,7 @@ export function weatherMapper(weather) {
       units: "%",
     },
     rainPredictions: {
-      values: weather.pronostico?.hoy.prob_precipitacion.map((v) => +v),
+      values: weather.pronostico?.hoy.prob_precipitacion.map((v) => +v) || [],
       units: "%",
     },
     predictions:

@@ -1,7 +1,8 @@
 import C from "../constants";
 import tokens from "../../utils/tokens";
+import { getCollections } from "../actions/collections";
 
-export const localStorageMiddleware = () => (next) => (action) => {
+export const localStorageMiddleware = (store) => (next) => (action) => {
   if (
     action.type === C.SIGNIN_SIGNUP_SUCCEEDED &&
     action.payload.keepLoggedIn
@@ -26,8 +27,12 @@ export const localStorageMiddleware = () => (next) => (action) => {
       const { token: newUserToken } = tokens.generateToken(user);
       window.localStorage.setItem("hitc-user-token", newUserToken);
       action.payload = { user, token: apiToken };
+      // TODO: Rethink this dispatch as it doesn't makes much sense here
+      next(action); // Set the token before dispaching the getCollections action
+      store.dispatch(getCollections());
+      return; // Return so the RESTORE action type doesn't triggers twice
     } catch (error) {
-      console.error("Restore", error);
+      console.error(error);
       return;
     }
   }

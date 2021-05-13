@@ -2,6 +2,7 @@ import C from "../constants";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { signIn, signUp } from "../../services/auth";
 import { signInSignUpSucceeded, signInSignUpFailed } from "../actions/auth";
+import { getCollections } from "../actions/collections";
 
 function* userSignIn({ payload }) {
   try {
@@ -9,6 +10,7 @@ function* userSignIn({ payload }) {
     yield put(
       signInSignUpSucceeded({ user, token, keepLoggedIn: payload.keepLoggedIn })
     );
+    yield put(getCollections());
   } catch (error) {
     yield put(signInSignUpFailed({ message: error.message }));
   }
@@ -20,6 +22,7 @@ function* userSignUp({ payload }) {
     yield put(
       signInSignUpSucceeded({ user, token, keepLoggedIn: payload.keepLoggedIn })
     );
+    yield put(getCollections());
   } catch (error) {
     yield put(signInSignUpFailed({ message: error.message }));
   }

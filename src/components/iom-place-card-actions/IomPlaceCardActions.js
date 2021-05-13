@@ -22,6 +22,7 @@ const IomPlaceCardActions = ({
   onRefresh,
   isLoading,
   collection,
+  collections,
   removePlaceFromCollection,
 }) => {
   const auth = useAuthContext();
@@ -29,33 +30,44 @@ const IomPlaceCardActions = ({
   const [isDeletePopoverOpen, setDeletePopover] = useState(false);
   const location = useLocation();
 
+  const saveToNewCollection = {
+    name: "Save to new Collection",
+    icon: "listAdd",
+    panel: 1,
+  };
+
+  const saveToExistingCollection = {
+    name: "Save to existing Collection",
+    icon: "list",
+    panel: 2,
+  };
+
+  const availableCollections = collections.filter(
+    (collection) => !collection.places.some(({ code }) => code === place.code)
+  );
+
   const savePanel = [
     {
       id: 0,
       title: `Save ${place.name} to your Collections`,
-      items: [
-        {
-          name: "Save to new Collection",
-          icon: "listAdd",
-          panel: 1,
-        },
-        {
-          name: "Save to existing Collection",
-          icon: "list",
-          panel: 2,
-        },
-      ],
+      items: !availableCollections.length
+        ? [saveToNewCollection]
+        : [saveToNewCollection, saveToExistingCollection],
     },
     {
       id: 1,
-      initialFocusedItemIndex: 1,
       title: "Save to new Collection",
       content: <IomNewCollectionForm place={place} />,
     },
     {
       id: 2,
       title: "Save to existing Collection",
-      content: <IomExistingCollectionForm place={place} />,
+      content: (
+        <IomExistingCollectionForm
+          place={place}
+          availableCollections={availableCollections}
+        />
+      ),
     },
   ];
 
