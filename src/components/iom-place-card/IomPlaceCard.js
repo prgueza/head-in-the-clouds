@@ -65,7 +65,7 @@ class IomPlaceCard extends React.Component {
       } = await getWeatherByPlace(
         {
           code: this.props.place.code,
-          countyCode: this.props.place.countyCode,
+          countycode: this.props.place.countycode,
         },
         { cancelToken: this.state.request.token }
       );

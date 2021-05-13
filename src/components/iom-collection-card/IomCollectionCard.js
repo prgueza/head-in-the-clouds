@@ -32,7 +32,6 @@ class IomCollectionCard extends React.Component {
       places: [],
     };
     this.getPlaces = this.getPlaces.bind(this);
-    console.log(this.props.collection);
   }
 
   componentDidMount() {

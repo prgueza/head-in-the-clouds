@@ -88,7 +88,7 @@ export const postPlace = async ({ collection, place }, { token }) => {
         name: place.name,
         county: place.county,
         code: place.code,
-        countyCode: place.countyCode,
+        countycode: place.countycode,
       },
       {
         headers: { Authorization: `Bearer ${token}` },

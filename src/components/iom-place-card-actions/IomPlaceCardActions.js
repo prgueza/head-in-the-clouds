@@ -29,8 +29,6 @@ const IomPlaceCardActions = ({
   const [isDeletePopoverOpen, setDeletePopover] = useState(false);
   const location = useLocation();
 
-  console.log(collection);
-
   const savePanel = [
     {
       id: 0,
@@ -84,7 +82,7 @@ const IomPlaceCardActions = ({
         aria-label="refresh"
         onClick={onRefresh}
       />
-      {auth.isLoggedIn && !location.pathname.includes("places") && (
+      {auth.isLoggedIn && !location.pathname.includes("places") ? (
         <EuiPopover
           id="contextMenuExample"
           button={
@@ -102,8 +100,7 @@ const IomPlaceCardActions = ({
         >
           <EuiContextMenu initialPanelId={0} panels={savePanel} />
         </EuiPopover>
-      )}
-      {auth.isLoggedIn && (
+      ) : (
         <EuiPopover
           id="contextMenuExample"
           button={

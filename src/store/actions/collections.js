@@ -1,12 +1,12 @@
 import C from "../constants";
 import { bindActionCreators } from "@reduxjs/toolkit";
 
-const setCollection = ({ collection }) => ({
+export const setCollection = ({ collection }) => ({
   type: C.COLLECTION_SET,
   payload: { collection },
 });
 
-const getCollections = () => ({
+export const getCollections = () => ({
   type: C.COLLECTIONS_FETCH_REQUESTED,
 });
 
@@ -98,25 +98,19 @@ export const reorderCollectionsFailed = ({ message }) => ({
 const collectionsActionsCreators = {
   setCollection,
   getCollections,
-  getCollectionsSucceeded,
-  getCollectionsFailed,
   reorderCollections,
-  reorderCollectionsSucceeded,
-  reorderCollectionsFailed,
   postCollection,
   postCollectionSucceeded,
   postCollectionFailed,
   deleteExistingCollection,
-  deleteExistingCollectionSucceeded,
-  deleteExistingCollectionFailed,
   addPlaceToCollection,
-  addPlaceToCollectionSucceeded,
-  addPlaceToCollectionFailed,
   removePlaceFromCollection,
-  removePlaceFromCollectionSucceeded,
-  removePlaceFromCollectionFailed,
 };
 
+/*
+  No need to bind the intermediate actions (SUCCEEDED/FAILED) as redux-saga's put method
+  already does this for us and it's the only module that uses these actions.
+*/
 const collectionsActions = (dispatch) => {
   return {
     dispatch,

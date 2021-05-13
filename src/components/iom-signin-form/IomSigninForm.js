@@ -67,10 +67,7 @@ const IomSigninForm = ({ isLoading, signIn }) => {
           <EuiFieldText
             name="identifier"
             value={identifier}
-            onChange={(e) => {
-              console.log(e);
-              setIdentifier(e.target.value);
-            }}
+            onChange={(e) => setIdentifier(e.target.value)}
           />
         </EuiFormRow>
         <EuiFormRow

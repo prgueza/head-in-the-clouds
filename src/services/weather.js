@@ -5,10 +5,10 @@ const weatherApi = axios.create({
   baseURL: process.env.REACT_APP_WEATHER_API_URL,
 });
 
-export const getWeatherByPlace = async ({ countyCode, code }) => {
+export const getWeatherByPlace = async ({ countycode, code }) => {
   try {
     const { data: rawWeather } = await weatherApi.get(
-      `provincias/${countyCode}/municipios/${code}`
+      `provincias/${countycode}/municipios/${code}`
     );
     const weather = weatherMapper(rawWeather);
     return { ...weather };
