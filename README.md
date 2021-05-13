@@ -1,4 +1,4 @@
-# Head in the clouds.
+# ☁️ Head in the clouds
 
 [![CI/CD](https://github.com/pedro-rodalia/head-in-the-clouds/actions/workflows/main.yml/badge.svg)](https://github.com/pedro-rodalia/head-in-the-clouds/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/pedro-rodalia/head-in-the-clouds/branch/feat/github-actions/graph/badge.svg?token=D7O8ZEZPUA)](https://codecov.io/gh/pedro-rodalia/head-in-the-clouds)
@@ -18,7 +18,7 @@ React + Redux based SPA for the IOMED Technical interview
   - [x] Use redux-saga to manage the persistence module.
   - [x] Upload the app source code to Github.
   - [x] Make the website available through Netlify.
-  - [ ] Test the application functionallity.
+  - [x] Test the application functionallity.
   - [x] (Optional) Use ​reduxjs-reselect​ to enhance the state management.
   - [x] (Optional) Use react-router to manage routing.
 

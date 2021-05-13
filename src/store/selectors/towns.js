@@ -5,14 +5,14 @@ const query = (state) => state.towns.query;
 
 const filteredTowns = createSelector(towns, query, (towns, query) => {
   if (!query.length) return [];
-
   const queryRegex = new RegExp(query.trim().toLowerCase());
-  const results = towns.filter(({ name }) =>
+  const matches = towns.filter(({ name }) =>
     queryRegex.test(name.trim().toLowerCase())
   );
-  return query.length < 3 && results.length > 50
-    ? results.slice(0, 10)
-    : results;
+  // For short queries the matches array might still be too big so we slice it
+  return query.length < 3 && matches.length > 50
+    ? matches.slice(0, 10)
+    : matches;
 });
 
 const townsSelectors = (state) => {

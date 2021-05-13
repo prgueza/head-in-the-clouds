@@ -1,5 +1,5 @@
 import C from "../constants";
-import {
+import authActions, {
   signIn,
   signUp,
   restore,
@@ -9,6 +9,29 @@ import {
 } from "./auth";
 
 describe("Auth Action Creators test suite", () => {
+  describe("Actions binding", () => {
+    test.each(
+      "The actions binder also returns the store dispatch method",
+      () => {
+        const dispatch = jest.fn();
+        const bindedActions = authActions(dispatch);
+        bindedActions.dispatch();
+        expect(dispatch).toHaveBeenCalled();
+      }
+    );
+
+    test.each([["signIn"], ["signUp"], ["restore"], ["signOut"]])(
+      "The %s action is binded to the dispatch function in order to be dispatched directly",
+      (action) => {
+        jest.resetAllMocks();
+        const dispatch = jest.fn();
+        const bindedActions = authActions(dispatch);
+        bindedActions[action]({});
+        expect(dispatch).toHaveBeenCalled();
+      }
+    );
+  });
+
   test("Sign in action creator returns the SIGNIN_REQUESTED action mapping args to the payload", () => {
     const payload = {
       identifier: "identifier",
@@ -16,14 +39,7 @@ describe("Auth Action Creators test suite", () => {
       keepLoggedIn: true,
     };
     const signInAction = signIn(payload);
-    expect(signInAction).toStrictEqual({
-      type: C.SIGNIN_REQUESTED,
-      payload: {
-        identifier: "identifier",
-        password: "password",
-        keepLoggedIn: true,
-      },
-    });
+    expect(signInAction).toStrictEqual({ type: C.SIGNIN_REQUESTED, payload });
   });
 
   test("Sign out action creator returns the SIGNUP_REQUESTED action mapping args to the payload", () => {
@@ -34,15 +50,7 @@ describe("Auth Action Creators test suite", () => {
       confirmPassword: "confirmPassword",
     };
     const signUpAction = signUp(payload);
-    expect(signUpAction).toStrictEqual({
-      type: C.SIGNUP_REQUESTED,
-      payload: {
-        username: "username",
-        email: "email",
-        password: "password",
-        confirmPassword: "confirmPassword",
-      },
-    });
+    expect(signUpAction).toStrictEqual({ type: C.SIGNUP_REQUESTED, payload });
   });
 
   test.each([
@@ -54,24 +62,20 @@ describe("Auth Action Creators test suite", () => {
   });
 
   test("SignInSignUpSucceeded action creator returns the SIGNIN_SIGNUP_SUCCEEDED action mapping the args to the payload", () => {
-    const signInSignUpSucceededAction = signInSignUpSucceeded({
-      user: "user",
-      token: "token",
-      keepLoggedIn: true,
-    });
+    const payload = { user: "user", token: "token", keepLoggedIn: true };
+    const signInSignUpSucceededAction = signInSignUpSucceeded(payload);
     expect(signInSignUpSucceededAction).toStrictEqual({
       type: C.SIGNIN_SIGNUP_SUCCEEDED,
-      payload: { user: "user", token: "token", keepLoggedIn: true },
+      payload,
     });
   });
 
   test("SignInSignUpFailed action creator returns the SIGNIN_SIGNUP_FAILED action mapping the args to the payload", () => {
-    const signInSignUpFailedAction = signInSignUpFailed({
-      message: "message",
-    });
+    const payload = { message: "message" };
+    const signInSignUpFailedAction = signInSignUpFailed(payload);
     expect(signInSignUpFailedAction).toStrictEqual({
       type: C.SIGNIN_SIGNUP_FAILED,
-      payload: { message: "message" },
+      payload,
     });
   });
 });

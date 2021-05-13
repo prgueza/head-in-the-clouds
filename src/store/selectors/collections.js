@@ -4,7 +4,7 @@ const getCollectionFromRoute = (state, props) => {
   );
 };
 
-const collectionsSelectors = (state, props) => {
+const collectionsSelectors = (state, props = {}) => {
   return {
     collectionFromRoute: getCollectionFromRoute(state, props),
     isLoading: state.collections.isLoading,

@@ -32,6 +32,10 @@ const authActionsCreators = {
   restore,
 };
 
+/*
+  No need to bind the intermediate actions (SUCCEEDED/FAILED) as redux-saga's put method
+  already does this for us and it's the only module that uses these actions.
+*/
 const authActions = (dispatch) => {
   return {
     dispatch,

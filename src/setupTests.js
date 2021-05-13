@@ -1,6 +1,6 @@
 import { configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import { server } from "./test/server.js";
+import Adapter from "enzyme-adapter-react-16";
 import mockConsole from "jest-mock-console";
 
 // Enzyme configuration
@@ -10,6 +10,7 @@ let resetConsole;
 
 // Establish API mocking before all tests.
 beforeAll(() => {
+  // In CI environments disabling the console makes reading results easier.
   if (process.env.CI) resetConsole = mockConsole();
   server.listen({ onUnhandledRequest: "warn" });
 });

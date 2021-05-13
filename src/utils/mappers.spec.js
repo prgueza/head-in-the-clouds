@@ -5,7 +5,7 @@ const townModel = {
   name: expect.any(String),
   county: expect.any(String),
   code: expect.any(String),
-  countyCode: expect.any(String),
+  countycode: expect.any(String),
 };
 
 const weatherModel = {
@@ -52,7 +52,7 @@ describe("Mappers test suite", () => {
       ["NOMBRE", "name", "Town name value", "Town name value"],
       ["NOMBRE", "label", "Town name value", "Town name value"],
       ["NOMBRE_PROVINCIA", "county", "County value", "County value"],
-      ["CODPROV", "countyCode", "County code", "County code"],
+      ["CODPROV", "countycode", "County code", "County code"],
     ])(
       "The %s field is mapped to %s",
       (sourceKey, targetKey, sourceValue, targetValue) => {

@@ -1,6 +1,6 @@
 import C from "../constants";
 
-const initialState = () => ({
+export const initialState = () => ({
   keepLoggedIn: false,
   isLoading: false,
   isLoggedIn: false,
@@ -22,7 +22,6 @@ function authReducer(state = initialState(), action) {
       return {
         ...state,
         isLoggedIn: true,
-        keepLoggedIn: true,
         user: action.payload?.user,
         token: action.payload?.token,
       };
@@ -37,10 +36,7 @@ function authReducer(state = initialState(), action) {
     case C.SIGNIN_SIGNUP_FAILED:
       return {
         ...state,
-        isLoggedIn: false,
         isLoading: false,
-        user: null,
-        token: null,
         error: true,
         errorMessage: action.payload.message,
       };

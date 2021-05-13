@@ -1,7 +1,7 @@
 import C from "../constants";
 import { bindActionCreators } from "@reduxjs/toolkit";
 
-const getTowns = () => ({
+export const getTowns = () => ({
   type: C.TOWNS_FETCH_REQUESTED,
 });
 
@@ -20,19 +20,21 @@ export const selectTowns = ({ selectedTowns }) => ({
   payload: { selectedTowns },
 });
 
-const queryTowns = ({ query }) => ({
+export const queryTowns = ({ query }) => ({
   type: C.TOWNS_QUERIED,
   payload: { query },
 });
 
 const townsActionsCreators = {
   getTowns,
-  getTownsSucceeded,
-  getTownsFailed,
   selectTowns,
   queryTowns,
 };
 
+/*
+  No need to bind the intermediate actions (SUCCEEDED/FAILED) as redux-saga's put method
+  already does this for us and it's the only module that uses these actions.
+*/
 const townsActions = (dispatch) => {
   return {
     dispatch,

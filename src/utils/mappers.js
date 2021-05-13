@@ -4,7 +4,7 @@ export function townMapper(town) {
     name: town.NOMBRE,
     county: town.NOMBRE_PROVINCIA,
     code: town.CODIGOINE?.slice(0, 5),
-    countyCode: town.CODPROV,
+    countycode: town.CODPROV,
   };
 }
 
