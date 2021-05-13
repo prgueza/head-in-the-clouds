@@ -6,7 +6,7 @@ import collectionsSelectors from "../../store/selectors/collections";
 import collectionsActions from "../../store/actions/collections";
 
 // Elastic UI Components
-import { EuiFlexGrid, EuiTitle, EuiFlexItem } from "@elastic/eui";
+import { EuiFlexGroup, EuiTitle, EuiFlexItem } from "@elastic/eui";
 
 // Components
 import IomPlaceCard from "../../components/iom-place-card/IomPlaceCard";
@@ -21,7 +21,7 @@ const IomPlacesView = ({ collectionFromRoute }) => {
       </div>
       <div className="iom-section__content-wrapper">
         <div className="iom-section__content">
-          <EuiFlexGrid wrap columns={4} gutterSize="xl">
+          <EuiFlexGroup wrap gutterSize="xl" justifyContent="center">
             {collectionFromRoute?.places.map((place) => (
               <EuiFlexItem
                 className="iom-section__content-item"
@@ -33,7 +33,7 @@ const IomPlacesView = ({ collectionFromRoute }) => {
                 ></IomPlaceCard>
               </EuiFlexItem>
             ))}
-          </EuiFlexGrid>
+          </EuiFlexGroup>
         </div>
       </div>
     </section>

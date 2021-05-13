@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import townsSelectors from "../../store/selectors/towns";
 
 // Elastic UI Components
-import { EuiFlexGrid, EuiFlexItem, EuiTitle } from "@elastic/eui";
+import { EuiFlexGroup, EuiFlexItem, EuiTitle } from "@elastic/eui";
 
 // Components
 import IomPlaceCard from "../../components/iom-place-card/IomPlaceCard";
@@ -22,18 +22,16 @@ function IomWeatherView({ selectedTowns }) {
       </div>
       <div className="iom-section__content-wrapper">
         <div className="iom-section__content">
-          <EuiFlexGrid
-            className="iom-section__content-item"
-            wrap
-            columns={4}
-            gutterSize="xl"
-          >
+          <EuiFlexGroup wrap gutterSize="xl" justifyContent="center">
             {selectedTowns.map((town) => (
-              <EuiFlexItem key={town.name}>
+              <EuiFlexItem
+                className="iom-section__content-item"
+                key={town.name}
+              >
                 <IomPlaceCard place={town}></IomPlaceCard>
               </EuiFlexItem>
             ))}
-          </EuiFlexGrid>
+          </EuiFlexGroup>
         </div>
       </div>
     </section>

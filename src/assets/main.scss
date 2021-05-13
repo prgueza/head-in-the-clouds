@@ -48,7 +48,6 @@ body {
   }
   &__content {
     padding: 4rem;
-    max-width: 1184px;
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -58,6 +57,7 @@ body {
     &-item {
       &#{&}#{&} {
         align-items: center;
+        flex: 0;
       }
     }
   }

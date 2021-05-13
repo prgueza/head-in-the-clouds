@@ -1,6 +1,6 @@
 .iom-place-card {
   width: 336px;
-  height: 420px;
+  min-height: 420px;
   position: relative;
   &__title {
     color: var(--accent-color-primary);
