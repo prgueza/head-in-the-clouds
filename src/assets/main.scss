@@ -48,11 +48,17 @@ body {
   }
   &__content {
     padding: 4rem;
+    max-width: 1184px;
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     &--column {
       flex-direction: column;
+    }
+    &-item {
+      &#{&}#{&} {
+        align-items: center;
+      }
     }
   }
   &__header {

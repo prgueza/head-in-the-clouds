@@ -27,11 +27,14 @@ class IomExistingCollectionForm extends React.Component {
     };
     this.setCollection = this.setCollection.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.mapCollectionsToOptions = this.mapCollectionsToOptions.bind(this);
+    this.collectionsAsOptions = this.collectionsAsOptions.bind(this);
   }
 
   componentDidMount() {
-    this.props.getCollections();
+    if (!this.props.collections.length) this.props.getCollections();
+    const defaultCollection = this.props.availableCollections?.[0];
+    if (defaultCollection)
+      this.setState({ selectedCollection: defaultCollection });
   }
 
   setCollection(selectedCollection) {
@@ -46,8 +49,8 @@ class IomExistingCollectionForm extends React.Component {
     this.props.onSave();
   }
 
-  mapCollectionsToOptions(collections) {
-    return collections.map((collection) => ({
+  collectionsAsOptions() {
+    return this.props.availableCollections.map((collection) => ({
       value: collection,
       icon: collection.icon,
       inputDisplay: <EuiText> {collection.name} </EuiText>,
@@ -65,13 +68,8 @@ class IomExistingCollectionForm extends React.Component {
           <EuiFlexItem>
             <EuiSuperSelect
               placeholder="Collection"
-              options={this.mapCollectionsToOptions(
-                this.props.availableCollections
-              )}
-              valueOfSelected={
-                this.state.selectedCollection ||
-                this.props.availableCollections[0]
-              }
+              options={this.collectionsAsOptions()}
+              valueOfSelected={this.state.selectedCollection}
               onChange={(value) => this.setCollection(value)}
               disabled={this.isSending}
               isLoading={this.props.isLoading}
